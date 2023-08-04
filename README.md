@@ -14,6 +14,6 @@ Além disso, vamos mergulhar em tópicos essenciais de estatística para anális
 
 Sinta-se à vontade para explorar os exemplos e códigos que disponibilizei aqui e outros que serão construídos com o tempo. Espero que esse material seja útil para você dar os primeiros passos emocionantes na jornada da ciência de dados!
 
-💡 Lembre-se de personalizar o texto de acordo com sua própria experiência e acrescentar detalhes adicionais que julgar relevantes.
+💡 Lembre-se de personalizar o texto de acordo com sua própria experiência e acrescentar detalhes adicionais que julgar relevantes e que em breve será adicionados novos códigos que irá ajudar no conhecimento de estatística para análise de dados.
 
 Aproveite a jornada e vamos aprender juntos! 🎓🤝
