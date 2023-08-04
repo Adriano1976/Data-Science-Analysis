@@ -1,2 +1,19 @@
-# Data Science Analysis
-Repositório referente aos códigos em Jupyter Notebook ensinados no Curso Data Science de A a Z. Aqui mostra como é feito a Extraçao e Exibição dos Dados com Python. Mostra também as áreas importantes como estatística e ETL no SQL Server! 
+## 👋 Olá! Seja muito bem-vindo ao meu repositório no GitHub! 🚀
+
+Aqui você encontrará exemplos e códigos práticos para iniciar na empolgante jornada da ciência de dados 📊🧠, pelo qual estou aprendendo sobre extração e exibição de dados, além de me familiarizar com Data Science usando Python 🐍.
+
+### Objetivo do Repositório
+
+O objetivo desse repositório é proporcionar uma introdução passo a passo aos conceitos básicos da ciência de dados. Aqui você encontrará alguns códigos que mostram como extrair dados relevantes e como limpá-los e prepará-los para análises mais avançadas. Vamos explorar juntos como utilizar principalmente Python como linguagem de programação, aproveitando bibliotecas populares como Pandas, NumPy e Matplotlib para analisar e visualizar os dados 📈📊.
+
+### Tópicos Abordados
+
+Além disso, vamos mergulhar em tópicos essenciais de estatística para análise de dados 📈📉, incluindo inferência estatística, testes de hipóteses e regressão estatística.
+
+### Sinta-se à vontade para explorar
+
+Sinta-se à vontade para explorar os exemplos e códigos que disponibilizei aqui e outros que serão construídos com o tempo. Espero que esse material seja útil para você dar os primeiros passos emocionantes na jornada da ciência de dados!
+
+💡 Lembre-se de personalizar o texto de acordo com sua própria experiência e acrescentar detalhes adicionais que julgar relevantes.
+
+Aproveite a jornada e vamos aprender juntos! 🎓🤝
