@@ -14,6 +14,8 @@ Aqui você encontrará:
 
 - **Códigos de Exemplo:** Além dos notebooks, você também terá acesso a diversos códigos de exemplo em Python, abordando desde conceitos básicos até tópicos mais avançados.
 
+- **Biblioteca NumPy:** Conheça essa biblioteca e ferramenta usada para a linguagem de programação Python que adiciona suporte a arrays e matrizes multidimensionais, juntamente com uma grande coleção de funções matemáticas de alto nível para operar em arrays. É amplamente utilizada em ciência de dados, aprendizado de máquina e outras áreas da computação científica.
+
 ## Como Utilizar
 
 1. Navegue pelos arquivos nesta pasta para encontrar o conteúdo que mais lhe interessa.
