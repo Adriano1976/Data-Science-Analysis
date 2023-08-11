@@ -18,3 +18,7 @@ Sinta-se à vontade para explorar os exemplos e códigos que disponibilizei aqui
 💡 Lembre-se de personalizar o texto de acordo com sua própria experiência e acrescentar detalhes adicionais que julgar relevantes e que em breve será adicionados novos códigos que irá ajudar no conhecimento de estatística para análise de dados.
 
 Aproveite a jornada e vamos aprender juntos! 🎓🤝
+
+<div align="center">
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=87CEFA&height=120&section=footer"/>**** 
+</div>
