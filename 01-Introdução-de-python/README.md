@@ -16,6 +16,8 @@ Aqui você encontrará:
 
 - **Biblioteca NumPy:** Conheça essa biblioteca e ferramenta usada para a linguagem de programação Python que adiciona suporte a arrays e matrizes multidimensionais, juntamente com uma grande coleção de funções matemáticas de alto nível para operar em arrays. É amplamente utilizada em ciência de dados, aprendizado de máquina e outras áreas da computação científica.
 
+- **Biblioteca pandas:** Venha conhecer essa biblioteca de código aberto para a linguagem de programação Python, usada principalmente para análise e manipulação de dados. Ela fornece estruturas de dados flexíveis e de alto desempenho, como o DataFrame, e oferece uma ampla gama de ferramentas para lidar com tarefas comuns de análise de dados, como limpeza, transformação, agregação e visualização.
+
 ## Como Utilizar
 
 1. Navegue pelos arquivos nesta pasta para encontrar o conteúdo que mais lhe interessa.
