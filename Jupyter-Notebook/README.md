@@ -18,10 +18,3 @@ jupyter notebook
 
 Isso abrirá uma interface web no seu navegador padrão, onde você pode criar e executar seus notebooks.
 
-<div align="center">
-<br><p align="centre"><b>Contagem de visitantes</b></p>  
-<p align="center"><img align="center" src="https://profile-counter.glitch.me/{Adriano1976}/count.svg" /></p> 
-<br>  
-
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=87CEFA&height=120&section=footer"/>**** 
-</div>
