@@ -18,3 +18,7 @@ jupyter notebook
 
 Isso abrirá uma interface web no seu navegador padrão, onde você pode criar e executar seus notebooks.
 
+<div align="center">
+<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=87CEFA&height=120&section=footer"/>**** 
+</div>
+
