@@ -8,3 +8,7 @@
 *  Navegue pelas pastas com curiosidade, pois é aqui que a magia da análise de dados acontece.
 *  Sinta-se à vontade para mergulhar nas informações e extrair as gemas de sabedoria que moldarão nosso entendimento do mundo ao nosso redor.
 *  Seja bem-vindo à jornada da descoberta!
+
+<div align="center">
+  <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=87CEFA&height=120&section=footer"/>**** 
+</div>
