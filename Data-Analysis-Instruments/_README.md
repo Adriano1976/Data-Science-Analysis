@@ -2,9 +2,9 @@
 
 ## Bem-vindos à pasta Data-Analysis-Instruments !
 
-Nesta pasta, você encontrará uma coleção valiosa de exemplos de **programas em Python**, organizados com carinho para atender às suas necessidades de tratamento, análise e visualização de dados. Reunimos uma variedade de blocos de código provenientes de programadores talentosos, incluindo contribuições próprias e adaptações criativas.
+Nesta pasta, você encontrará uma coleção valiosa de exemplos de **programas em Python e em R**, organizados com carinho para atender às suas necessidades de tratamento, análise e visualização de dados. Reunimos uma variedade de blocos de código provenientes de programadores talentosos, incluindo contribuições próprias e adaptações criativas.
 
-Nossos recursos abrangem uma gama de tópicos, desde manipulação de dados até técnicas avançadas de análise estatística. Cada exemplo é acompanhado de um Jupyter Notebook, permitindo que você mergulhe profundamente nos detalhes e experimente os códigos por si mesmo.
+Nossos recursos abrangem uma gama de tópicos, desde manipulação de dados até técnicas avançadas de análise estatística. Cada exemplo é acompanhado de **Jupyter Notebook e RStudio**, permitindo que você mergulhe profundamente nos detalhes e experimente os códigos por si mesmo.
 
 O que torna nossa coleção ainda mais poderosa é a capacidade de transformar esses dados em insights visualmente impactantes. Você pode aproveitar esses programas para criar gráficos personalizados no Power BI ou em outras ferramentas de visualização, permitindo que as informações sejam comunicadas de maneira eficaz e envolvente.
 
