@@ -202,7 +202,11 @@ ggplot(previsoes_novos_dados, aes(x = status, y = anomaly_score, fill = status))
   scale_fill_manual(values = c("anomalia" = "red", "normal" = "blue")) +
   theme(legend.position = "none")
 
-# Salva em disco
+# Salvar em disco - Este código R está escrevendo os dados contidos no objeto 
+# "previsoes_novos_dados" para um arquivo CSV chamado "previsoes_novos_dados.csv". 
+# Isso permitirá que os dados sejam armazenados em um formato de planilha que pode 
+# ser facilmente compartilhado ou importado para outros programas.
+
 write.csv(previsoes_novos_dados, "previsoes_novos_dados.csv")
 
 
