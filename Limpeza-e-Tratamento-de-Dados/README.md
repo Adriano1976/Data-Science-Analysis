@@ -14,7 +14,7 @@ Nesta pasta, você encontrará:
 1. [Introdução à Limpeza de Dados com Python](./python/intro_limpeza_dados.py)
    > Um guia básico sobre como identificar e lidar com valores ausentes e outliers.
 
-2. [Transformação de Dados com R](./r/transformacao_dados.R)
+2. [Transformação de Dados com R](./Limpeza-e-Tratamento-de-Dados/Limpar__Churn.Rmd)
    > Exemplo de como realizar transformações como agregações e criação de variáveis novas.
 
 ## Como Usar
