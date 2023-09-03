@@ -1,0 +1,99 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Lattice
+---
+
+```{r}
+# Este código importa a biblioteca "lattice" para R, que é usada para criar gráficos estatísticos avançados, como gráficos de dispersão condicionais e gráficos de barras agrupadas. O comando "library(lattice)" torna as funções dessa biblioteca disponíveis para uso no script R.
+
+library(lattice)
+```
+Boxplot
+```{r}
+# Esse código em R cria dois gráficos de caixa (boxplots) para a variável "Volume" do conjunto de dados "trees". O primeiro gráfico não possui título nem rótulo no eixo x, enquanto o segundo gráfico tem o título "Árvores" e rótulo "Volume" no eixo x. Esses gráficos são usados para visualizar a distribuição e a variação dos valores da variável "Volume" em diferentes árvores.
+
+bwplot(trees$Volume)
+bwplot(trees$Volume, main="Árvores",xlab="Volume")
+```
+Histograma
+Aspecto é a proporção, nint número de quebras, type: percent, count, density
+```{r}
+# Este código R cria um histograma com os volumes de árvores usando os dados da variável "Volume" do dataframe "trees". O gráfico tem um título "Árvores", rótulo no eixo x "Volume", usa porcentagens em vez de contagens e é dividido em 5 intervalos.
+
+histogram(trees$Volume, main="Árvores",xlab="Volume",aspect=1, type = "percent", nint=5 )
+```
+Histograma condicional
+```{r}
+#Peso das galinhas de acordo com alimentação
+
+chickwts
+
+# Cria um histograma dos pesos dos frangos (coluna 'weight') no conjunto de dados 'chickwts'.
+histogram(chickwts$weight)
+
+# Calcula a soma dos pesos dos frangos agrupados por tipo de alimentação (coluna 'feed') no conjunto de dados 'chickwts'.
+aggregate(chickwts$weight, by=list(chickwts$feed), FUN=sum)
+
+# Cria histogramas separados por tipo de alimentação (coluna 'feed') para os pesos dos frangos no conjunto de dados 'chickwts'.
+histogram( ~weight | feed, data=chickwts)
+```
+Gráfico de dispersão condicional
+CO2, seis plantas em dois locais, refrigeradas ou não durante a noite
+```{r}
+#CO2, conc: concentração de co2, uptake: captação de co2
+CO2
+
+# O código "xyplot(CO2$conc ~ CO2$uptake)" é uma função em R que cria um gráfico de dispersão (scatter plot) onde os valores da coluna "conc" do conjunto de dados CO2 são plotados no eixo y e os valores da coluna "uptake" são plotados no eixo x. Esse gráfico é útil para visualizar a relação entre essas duas variáveis.
+
+xyplot(CO2$conc ~ CO2$uptake)
+
+# O código em R utiliza a função xyplot para criar um gráfico de dispersão (scatter plot) em que a variável "conc" é representada no eixo vertical e a variável "uptake" no eixo horizontal, com os dados divididos por diferentes tipos de plantas (variável "Type"). Isso permite visualizar a relação entre "conc" e "uptake" para cada tipo de planta separadamente.
+
+xyplot(CO2$conc ~ CO2$uptake | CO2$Type)
+
+# O código em R cria um gráfico XY onde o eixo x representa a coluna 'conc' do conjunto de dados CO2, o eixo y representa a coluna 'uptake', e os dados são divididos em painéis diferentes de acordo com os valores da coluna 'Treatment' do CO2.
+
+xyplot(CO2$conc ~ CO2$uptake | CO2$Treatment)
+```
+Cancer de esofago
+agegp: idade, alcgp: alcool, tobgp: tabaco
+```{r}
+# Este código R utiliza o conjunto de dados "esoph" para criar dois gráficos de pontos. O primeiro representa a relação entre as variáveis "alcgp" e "ncontrols", enquanto o segundo mostra essa relação condicionada à variável "tobgp". Os gráficos de pontos ajudam a visualizar a distribuição e padrões nos dados.
+
+esoph
+dotplot(esoph$alcgp ~ esoph$ncontrols, data=esoph)
+dotplot(esoph$alcgp ~ esoph$ncontrols | esoph$tobgp)
+```
+Matriz de dispersão
+```{r}
+# O código realiza uma plotagem de matrizes de dispersão (scatterplot matrix) para as colunas 4 e 5 do conjunto de dados CO2, agrupando os gráficos por tipo de CO2. Isso ajuda a visualizar as relações entre as variáveis em relação ao tipo de CO2 em um único painel.
+
+splom(~CO2[4:5] | CO2$Type, CO2)
+```
+Densidade condicional
+```{r}
+# Esse código em R cria gráficos de densidade para os valores da coluna 'conc' do conjunto de dados CO2. Os gráficos são divididos por tratamento (Treatment) quando a primeira linha é executada e, nas outras linhas, são gerados gráficos gerais de densidade. O parâmetro 'plot.points=FALSE' indica que os pontos não devem ser exibidos nos gráficos.
+
+densityplot(~CO2$conc | CO2$Treatment, plot.points=FALSE)
+densityplot(CO2$conc)
+densityplot(~CO2$conc | CO2$Treatment)
+densityplot(~CO2$conc | CO2$Treatment, plot.points=FALSE)
+```
+Gráfico 3D
+Spray para repelir abelhas
+```{r}
+# O código apresenta visualizações de nuvens de pontos para analisar dados do conjunto OrchardSprays, onde a primeira linha cria uma nuvem de pontos com uma única cor, enquanto a segunda linha colore as nuvens de pontos de acordo com os grupos definidos pela variável "treatment" no conjunto de dados OrchardSprays. Essas visualizações podem ser úteis para identificar padrões ou diferenças nos dados com base nos tratamentos aplicados.
+
+OrchardSprays
+cloud(decrease ~ rowpos * colpos, data=OrchardSprays)
+cloud(decrease ~ rowpos * colpos, groups=treatment, data=OrchardSprays)
+```
+Level plot
+Circunferência, largura e volume de árvores
+```{r}
+# Esse código em R cria um gráfico de nível (levelplot) que representa a relação entre a circunferência (Girth) das árvores em função de sua altura (Height) e volume (Volume) usando o conjunto de dados "trees". O gráfico mostra como Girth varia em relação a Height e Volume em um formato de mapa de cores.
+
+trees
+levelplot(Girth ~ Height * Volume, data=trees)
+```
+

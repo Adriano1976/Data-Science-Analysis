@@ -1,0 +1,42 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Tabelas
+---
+
+```{r}
+# O código "install.packages("stargazer")" é usado para instalar um pacote chamado "stargazer" em R, uma linguagem de programação estatística. Este pacote "stargazer" é comumente utilizado para criar tabelas estatísticas a partir de resultados de análises, facilitando a apresentação de dados de forma organizada. A função "install.packages" é usada para baixar e instalar novos pacotes no ambiente R, tornando-os disponíveis para uso em análises posteriores.
+
+install.packages("stargazer")
+```
+
+
+```{r}
+# # Este código utiliza a biblioteca "stargazer" em R para criar tabelas de resumo estilizadas a partir de objetos de dados, como modelos estatísticos, facilitando a apresentação visual de resultados.
+
+library(stargazer)
+```
+Formato Latex
+```{r}
+# O código "stargazer(iris)" é uma chamada de função em R que gera uma tabela de resumo estatístico para o conjunto de dados "iris" e a exibe de forma formatada. Essa função é comumente usada para criar tabelas de resumo estatístico em análises de dados no R.
+
+stargazer(iris)
+```
+Html
+```{r}
+# O código "stargazer(iris, type="html")" gera uma tabela HTML a partir do conjunto de dados "iris". A função "stargazer" é comumente usada para criar resumos estatísticos de maneira simples e rápida em linguagem R.
+
+stargazer(iris, type="html")
+```
+Texto
+```{r}
+# O código utiliza a função "stargazer" para criar uma tabela de resumo estilizada em formato de texto a partir do conjunto de dados "iris", que é um conjunto de dados famoso em análise de dados.
+
+stargazer(iris, type="text")
+```
+Salva em Disco
+```{r}
+# O código `stargazer(women, out="women.tex", summary=FALSE)` realiza a geração de uma tabela em formato LaTeX (`.tex`) a partir do conjunto de dados chamado "women", desabilitando a inclusão de um resumo estatístico. Isso pode ser útil para criar documentos LaTeX com informações sobre o conjunto de dados "women".
+
+stargazer(women, out="women.tex", summary=FALSE)
+```
+

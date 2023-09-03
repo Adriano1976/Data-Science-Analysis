@@ -1,0 +1,55 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Gráficos Básicos - Continuação
+---
+Boxplot
+```{r}
+# Este código em R cria gráficos de boxplot para visualizar a distribuição do volume de árvores. O primeiro gráfico é padrão, o segundo muda a cor para azul e orientação horizontal, enquanto o terceiro remove os valores discrepantes (outliers) e mantém a cor azul.
+
+boxplot(trees$Volume, main= "Árvores", xlab = "Volume")
+boxplot(trees$Volume, main= "Árvores", xlab = "Volume", col="blue", horizontal=TRUE )
+boxplot(trees$Volume, main="Árvores", xlab = "Volume", col="blue",outline=F )
+```
+
+```{r}
+# Esse código R cria um gráfico de caixa (boxplot) para representar a distribuição das alturas das árvores. A opção `notch=TRUE` indica que o gráfico deve incluir uma fenda (notch) para mostrar a diferença na mediana. Em seguida, são calculadas estatísticas resumidas das alturas das árvores, e o código extrai apenas os valores das estatísticas (mínimo, 1º quartil, mediana, 3º quartil e máximo) usando `boxplot.stats(trees$Height)$stats`.
+
+boxplot( trees$Height, main="Árvores", xlab = "Altura", col="blue",  notch=TRUE )
+boxplot.stats(trees$Height)
+boxplot.stats(trees$Height)$stats
+```
+Vários gráficos
+```{r}
+# O código "boxplot(trees)" cria um gráfico de caixa (boxplot) com base nos dados do conjunto de dados "trees", que provavelmente representa informações sobre árvores, mostrando a distribuição estatística de medidas como altura, diâmetro e volume das árvores. O gráfico de caixa exibe a mediana, quartis e possíveis valores discrepantes dos dados de forma visual.
+
+boxplot(trees)
+```
+Agregação
+```{r}
+# Este código em R está agrupando os dados da tabela "InsectSprays" pela coluna "spray" e calculando a soma de cada grupo. Em seguida, ele exibe o resultado, que é uma tabela com a contagem cumulativa de insetos em cada tipo de spray usado.
+
+InsectSprays
+spray = aggregate(. ~ spray, data=InsectSprays,sum)
+spray 
+```
+Gráfico de Barras
+```{r}
+# Esse código em R cria um gráfico de barras (barplot) usando os dados da coluna 'count' do dataframe 'spray', com cores em tons de cinza (gray.colors(6)), e adiciona rótulos nos eixos X e Y. Em seguida, a função 'box()' é chamada para adicionar uma caixa ao gráfico.
+
+barplot(spray$count,col= gray.colors(6), xlab="Spray", ylab="Total", names.arg=spray$spray)
+box()
+```
+Gráfico de Setor - Pizza
+```{r}
+# Esse código em R cria um gráfico de pizza (pie chart) usando os dados de contagem da variável "count" do conjunto de dados "spray". Ele utiliza os rótulos das categorias de "spray" como etiquetas e define o título do gráfico como "Spray". As cores das fatias do gráfico são definidas de 1 a 6. 
+
+pie(spray$count, labels= spray$spray, main="Spray",col=c(1:6))
+```
+Pizza com legenda
+```{r}
+# Este código em R cria um gráfico de pizza (pie chart) com dados contidos na variável `spray$count`, onde cada fatia representa uma categoria não rotulada (usando `labels=NA`) relacionada ao inseticida "Spray". As cores das fatias são definidas de 1 a 6. Em seguida, é adicionada uma legenda na parte inferior direita do gráfico que identifica as cores com os nomes dos diferentes tipos de spray contidos em `spray$spray`.
+
+pie(spray$count,labels=NA,  main="Spray",col=c(1:6))
+legend("bottomright",legend=spray$spray ,cex=1, fill=c(1:6))
+```
+
