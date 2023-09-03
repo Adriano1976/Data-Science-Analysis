@@ -59,8 +59,8 @@ box()
 
 
 ```{r}
-#Relação entre PIB e empenho
-#Calcula qual % de PIB foi empenhado
+# Esse código em R realiza as seguintes ações em até três frases: Calcula a proporção entre a coluna VALOREMPENHO e PIB no conjunto de dados 'dados' e armazena os resultados na coluna PROPORCAO. Seleciona as 10 linhas com as maiores proporções e armazena-as em 'Mprop'. Cria um gráfico de barras ('barplot') mostrando as proporções dessas 10 linhas em cores diferentes, com um título indicando "Maiores Gastos em Proporção ao PIB", adiciona uma legenda ('legend') com os nomes dos municípios correspondentes e uma caixa ao redor do gráfico ('box()').
+
 dados$PROPORCAO =   dados$VALOREMPENHO  / dados$PIB 
 Mprop = head(dados[order(-dados$PROPORCAO),],10)
 barplot(Mprop$PROPORCAO,col=brewer.pal(n = 10, name = "Set2"),las=2,main = "Maiores Gastos em Proporção ao PIB")
