@@ -1,0 +1,79 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Gráficos Básicos
+---
+Histograma
+```{r}
+# Este código em R cria três histogramas da altura das árvores. O primeiro histograma exibe a distribuição da altura sem nenhuma personalização. O segundo adiciona rótulos aos eixos e um título ao gráfico. O terceiro aumenta a densidade das barras e define o número de intervalos (breaks) para 20, tornando o gráfico mais detalhado.
+
+trees
+hist( trees$Height)
+hist( trees$Height,  main="Árvores", ylab="Frequência",xlab="Altura", col="blue")
+hist( trees$Height,  main="Árvores", ylab="Frequência",xlab="Altura", col="blue", density=20, breaks=20)
+```
+Densidade
+```{r}
+# Esse código em R calcula a densidade de uma variável chamada "Height" do conjunto de dados "trees" e, em seguida, cria um gráfico da densidade dessa variável.
+
+densidade = density(trees$Height)
+plot(densidade)
+```
+Densidade sobre o Histograma, parâmetro par
+```{r}
+# Esse código em R cria um histograma da altura das árvores (trees$Height) sem rótulos nos eixos. Em seguida, usa par(new=TRUE) para permitir que um novo gráfico seja sobreposto e plota uma densidade (presumivelmente anteriormente definida) no mesmo espaço gráfico.
+
+hist(trees$Height, main=NULL, xlab=NULL, ylab = NULL)
+par(new=TRUE)
+plot(densidade)
+```
+Dispersão
+```{r}
+# Este código R cria gráficos de dispersão usando os dados do conjunto "trees" para representar a relação entre duas variáveis. As diferentes linhas de código adicionam características visuais ao gráfico, como título ("Árvores"), rótulos dos eixos ("Circunferência" no eixo y e "Volume" no eixo x), a cor dos pontos (azul), e o estilo dos pontos (pch=20, que define os pontos como quadrados).
+
+plot(trees$Girth, trees$Volume)
+plot(trees$Girth, trees$Volume, main="Árvores")
+plot(trees$Girth, trees$Volume, ylab="Cirunferência", xlab="Volume", col="blue", main="Árvores")
+plot(trees$Girth, trees$Volume, ylab="Cirunferência", xlab="Volume", col="blue", main="Árvores", pch=20)
+```
+Muda tipo
+```{r}
+# Este código R cria um gráfico de dispersão com linhas conectando os pontos. Ele utiliza os dados de 'Girth' no eixo x e 'Volume' no eixo y, com rótulos de eixo, título e pontos azuis em forma de quadrados.
+
+plot(trees$Girth, trees$Volume, ylab="Cirunferência", xlab="Volume", col="blue", main="Árovres", pch=20, type="l")
+```
+Tremulação, diminui sobre posição
+```{r}
+# Esse código em R gera um gráfico de dispersão, onde a circunferência das árvores (no eixo Y) é plotada em relação ao seu volume (no eixo X), usando pontos azuis com alguma variação horizontal para evitar sobreposição de pontos. O título do gráfico é "Árvores" e os rótulos dos eixos indicam "Circunferência" para o eixo Y e "Volume" para o eixo X.
+
+plot(jitter(trees$Girth), trees$Volume, ylab="Cirunferência", xlab="Volume", col="blue", main="Árvores")
+```
+Legenda com dimensão categórica
+```{r}
+# Este código R cria um gráfico de dispersão usando os dados das colunas "conc" e "uptake" do conjunto de dados CO2, onde os pontos são representados com um marcador de formato 20 e a cor é determinada pela coluna "Treatment" do CO2. Em seguida, ele adiciona uma legenda no canto inferior direito do gráfico com as etiquetas "nonchilled" e "chilled", usando as cores preto e vermelho, respectivamente, para representá-las.
+
+plot(CO2$conc, CO2$uptake,pch=20, col= CO2$Treatment)
+#"bottom", "bottomleft", "left", "topleft", "top", "topright", "right" and "center"
+legend("bottomright",legend=c("nonchilled","chilled"),cex=1, fill=c("black","red")) 
+```
+Novos dados
+```{r}
+# O código "plot(trees)" cria um gráfico simples das alturas das árvores (variável "Height") em um conjunto de dados chamado "trees". O gráfico mostra a distribuição das alturas das árvores em um formato de histograma.
+
+plot(trees)
+```
+Divisão da tela
+```{r}
+# Este código em R cria uma tela dividida em quatro seções e plota diferentes gráficos em cada uma delas. Os gráficos incluem um gráfico de dispersão de Girth vs. Volume, Girth vs. Height, Height vs. Volume e um histograma de Volume dos dados contidos no conjunto 'trees'. Em seguida, ele fecha todas as telas criadas.
+
+split.screen(figs=c(2,2))
+screen(1)
+plot(trees$Girth, trees$Volume)
+screen(2)
+plot(trees$Girth, trees$Height)
+screen(3)
+plot(trees$Height, trees$Volume)
+screen(4)
+hist(trees$Volume)
+close.screen(all=TRUE)
+```
+
