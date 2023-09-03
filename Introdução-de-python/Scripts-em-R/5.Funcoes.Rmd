@@ -1,0 +1,17 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Funções
+---
+
+```{r}
+# O código em R mostra o diretório de trabalho atual, exibe a função de desvio padrão, e então exibe as primeiras linhas do conjunto de dados "iris" de diferentes maneiras, incluindo com argumentos nomeados e não nomeados, mas também com alguns erros, como o uso incorreto da função "head".
+
+
+getwd()
+#sem parenteses
+sd
+head(x=iris, n=2)
+head(iris)
+head(iris,2)
+head(n=22)
+```

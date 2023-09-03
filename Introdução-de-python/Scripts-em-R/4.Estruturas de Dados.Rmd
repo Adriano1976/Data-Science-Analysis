@@ -1,0 +1,78 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Estruturas de Dados
+---
+Vetores
+```{r}
+# Este código em R cria um vetor chamado X com os valores de 1 a 6, mostra o vetor X, exibe o primeiro valor do vetor, muda o primeiro valor para 10 e, por fim, mostra novamente o primeiro valor atualizado.
+
+X  = c(1,2,3,4,5,6)  
+X 
+X[1]
+X[1] = 10
+X[1]
+```
+Vetores de outros tipos
+```{r}
+# O código cria uma lista de letras chamada Y e a mostra, depois cria uma lista de números inteiros chamada Z, a exibe e finalmente mostra o tipo de dados da lista Z.
+
+Y = c("a","b","c","d")
+Y
+Z = c(1L,2L,3L)
+Z
+class(Z)
+```
+Matrizes
+```{r}
+# O código em R exibe dados sobre taxas de morte em diferentes grupos etários e sexos, mostrando os nomes das colunas e das linhas na tabela.
+
+VADeaths
+colnames(VADeaths)
+rownames(VADeaths)
+```
+Matrizes
+```{r}
+# Esse código em R seleciona diferentes partes dos dados da tabela VADeaths: a primeira coluna, a primeira linha, as primeiras três linhas e linhas específicas (1, 3 e 5).
+
+# só coluna 1
+VADeaths[,1]
+# so linha 1
+VADeaths[1,]
+# linhas 1 até 3
+VADeaths[1:3,]
+VADeaths[c(1,3,5),]
+```
+Data Frame
+```{r}
+# O código usa um conjunto de dados chamado "longley" e mostra as três primeiras colunas da matriz, acessa a coluna "Unemployed" usando tanto o símbolo "$" quanto o nome, demonstrando diferentes maneiras de selecionar dados.
+
+longley
+# funcina como matriz
+longley[,1:3]
+# acessar coluna com $
+longley$Unemployed
+# ou nome
+longley['Unemployed']
+```
+Listas
+```{r}
+# Este código em R acessa e manipula informações contidas em uma lista chamada "ability.cov", incluindo a extração de elementos específicos, verificação de tipos de objetos e acesso a subconjuntos de dados dentro de um elemento da lista.
+
+ability.cov 
+# acessando elementos
+ability.cov$cov
+ability.cov[1]
+# verificando que são objetos diferentes
+class( ability.cov$cov)
+class( ability.cov$center)
+# acesando elemento dentro da lista
+ability.cov$cov[,1:3]
+```
+Fatores
+```{r}
+# O código em R está mostrando uma variável chamada "state.region" que provavelmente contém informações sobre as regiões geográficas dos estados.
+
+#fatores
+state.region
+```
+

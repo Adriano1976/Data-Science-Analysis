@@ -1,0 +1,48 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Aspectos Diversos
+---
+Diretório de Trabalho
+```{r}
+# Esse código em R primeiro mostra o diretório de trabalho atual e, em seguida, muda o diretório de trabalho para "c:\dados".
+
+getwd()
+setwd("c:\\dados")
+```
+Tipo do objeto
+```{r}
+# Esse código em R verifica a classe do conjunto de dados "iris", mostrando que ele é um conjunto de dados comumente usado para exemplos em análise estatística e de machine learning.
+
+class(iris)
+```
+Salvar um objeto
+```{r}
+# Esse código em R clona os dados do conjunto de dados "iris", salva essa cópia em um arquivo chamado "iristeste.Rdata", remove a cópia dos dados do ambiente R e, por fim, tenta acessar a cópia removida, resultando em um erro.
+
+# clona
+iristeste = iris
+# salva
+save(iristeste, file="iristeste.Rdata")
+# remove do r
+rm(iristeste)
+# testa a remoção
+iristeste
+```
+Carrega
+```{r}
+# Esse código carrega informações de um arquivo chamado "iristeste.Rdata" e exibe o conteúdo do objeto chamado "iristeste".
+
+# Carrega o objeto do disco
+load(file="iristeste.Rdata")
+# testa
+iristeste
+```
+Vetor e gráfico básico
+```{r}
+# O código cria dois conjuntos de números, "x" e "y", e depois cria um gráfico de pontos usando esses conjuntos. Cada número de "x" é associado ao número correspondente em "y" no gráfico.
+
+x = c(12,34,56,79)
+y = c(1,6,9,14)
+plot(x,y)
+```
+

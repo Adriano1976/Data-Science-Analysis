@@ -1,0 +1,51 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Principais Funções
+---
+Head e Tail
+```{r}
+# Nesse código em R, o conjunto de dados "esoph" é apresentado, mostrando suas primeiras 6 linhas, as últimas linhas e novamente as primeiras 10 linhas.
+
+esoph
+#default 6 linhas
+head(esoph)
+tail(esoph)
+#10 linhas
+head(esoph, n=10)
+```
+Dimensões
+```{r}
+# O código verifica as dimensões do conjunto de dados "esoph" (número de linhas e colunas) e, em seguida, exibe o número de linhas desse conjunto de dados.
+
+dim(esoph)
+dim(esoph)[1]
+```
+Comprimento
+```{r}
+# Esse código em R verifica quantas colunas há em um conjunto de dados bidimensional chamado "islands".
+
+# se usar com objeto bidimensional vai retornar colunas
+length(islands )
+```
+Nomes de Colunas
+```{r}
+# Esse código em R verifica quantas colunas há em um objeto bidimensional chamado "islands".
+
+colnames(esoph)
+```
+Nome de Linhas
+```{r}
+# Este código em R está extraindo e mostrando os nomes das linhas de um conjunto de dados chamado "esoph".
+
+rownames(esoph)
+```
+Resumo
+```{r}
+summary(esoph)
+```
+Escolher Arquivo
+```{r}
+x = file.choose()
+x
+```
+
