@@ -1,0 +1,43 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Amostragem Simples
+---
+Teorema Central do Limite
+```{r}
+# Esse código em R define algumas configurações iniciais. A primeira linha suprime mensagens de aviso. A segunda linha instala o pacote "semTools" se ainda não estiver instalado. E a terceira linha carrega o pacote "semTools" para uso no ambiente de trabalho do R.
+
+options(warn=-1)
+install.packages("semTools")
+library(semTools)
+
+```
+Inicializa um vetor 
+```{r}
+# Esse código em R cria um vetor chamado 'z' com 500 elementos, todos definidos como o valor 0. Essa função 'rep' é usada para repetir o valor 0 500 vezes e armazená-lo no vetor 'z'.
+
+z = rep(0,500)
+```
+Gera as amostras
+```{r}
+# Este código em R cria um loop que gera 500 amostras de dados não normais multivariados (com 2 variáveis) usando a função `mvrnonnorm`. Cada amostra tem uma média, matriz de covariância, assimetria e curtose específicas. Em seguida, ele calcula a média de cada amostra e armazena esses valores em um vetor chamado `z`. Além disso, o código gera histogramas para as três primeiras amostras e os exibe separadamente.
+
+for (i in 1:500) {
+  m = mvrnonnorm(1000, c(1, 2), matrix(c(10, 2, 2, 5), 2, 2),
+                 skewness = c(5, 2), kurtosis = c(3, 3))
+  # Grava a média da amostra
+  z[i] =mean(m)
+  
+  # Imprime as 3 primeiras
+  if (i<4){
+   
+    hist(m,breaks=50, main= paste0("Histrograma ", i ))
+  }
+}
+```
+Imprime a distribuição da média das amostras
+```{r}
+# Esse código em R cria um histograma a partir dos dados contidos no vetor 'z', exibindo uma representação gráfica da distribuição das frequências dos valores em 'z'. O histograma mostra a quantidade de dados em intervalos ou classes e pode ser usado para visualizar a forma da distribuição desses valores.
+
+hist(z)
+```
+

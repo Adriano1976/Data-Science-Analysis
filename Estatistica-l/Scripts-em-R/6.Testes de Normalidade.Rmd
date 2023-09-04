@@ -1,0 +1,65 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Amostragem Simples
+---
+Testes de Normalidade
+Repetir o experimento
+```{r}
+# Esse código em R define a semente aleatória como 123, garantindo que os resultados gerados em operações subsequentes que envolvem números aleatórios sejam replicáveis e consistentes. Isso é útil em análises estatísticas e simulações para obter os mesmos resultados toda vez que o código é executado, desde que a mesma semente seja usada.
+
+set.seed(123)
+```
+Gera mil variáveis normalmente distribuidas
+```{r}
+# Este código em R cria um vetor chamado 'x' com 1000 números aleatórios seguindo uma distribuição normal (Gaussiana) padrão. A função 'rnorm' gera esses números aleatórios com uma média de 0 e um desvio padrão de 1, que são características da distribuição normal padrão. O vetor 'x' conterá, portanto, 1000 valores aleatórios que seguem a forma típica de uma curva de sino. Isso é frequentemente usado em análises estatísticas e simulações para representar dados com distribuição normal.
+
+x = rnorm(1000)
+```
+Gráfico QQ
+```{r}
+# O código em R realiza um gráfico QQ-plot (Quantile-Quantile) para avaliar a normalidade dos dados armazenados na variável 'x'. O comando 'qqnorm(x)' cria o gráfico de quantis esperados contra os quantis observados dos dados 'x', enquanto 'qqline(x)' adiciona uma linha de referência diagonal ao gráfico para verificar o ajuste à distribuição normal. Isso é útil para identificar desvios da normalidade nos dados 'x'.
+
+qqnorm(x)
+qqline(x)
+```
+Teste de Shapiro
+Valor de p acima de 0,05, não há indício para a não confirmar a hipótese nula de dados normalmente distribuidos
+```{r}
+# O código `shapiro.test(x)` é uma função em R que realiza o teste de Shapiro-Wilk para verificar se o vetor de dados 'x' segue uma distribuição normal. O resultado deste teste é usado para avaliar a normalidade dos dados, ou seja, se eles são aproximadamente distribuídos de acordo com uma curva normal. O resultado da função indicará se há evidências estatísticas para considerar os dados como normalmente distribuídos ou não.
+
+shapiro.test(x) 
+```
+Histograma com linha de densidade
+```{r}
+# Esse código em R cria um histograma da variável 'x', sem rótulos nos eixos, com um título vazio. Em seguida, ele superpõe um gráfico de densidade da mesma variável 'x' no mesmo gráfico, removendo os eixos e definindo a largura da linha como 2,5. Essa combinação permite visualizar a distribuição de 'x' por meio do histograma e da densidade.
+
+hist(x, main="")
+par(new=TRUE)
+plot(density(x),ylab = "", xlab = "", axes=F, lwd=2.5 ) 
+```
+Dados não normalmente distribuidos
+```{r}
+# Esse código em R utiliza a biblioteca "semTools" para gerar uma amostra de dados não normalizados com 1000 observações. Os dados são criados com médias, desvios-padrão, assimetria e curtose específicos. Em seguida, o código cria um gráfico Q-Q plot para verificar se a amostra se aproxima de uma distribuição normal, representada pela linha diagonal.
+
+#install.packages("semTools")
+library(semTools)
+m = mvrnonnorm(1000, c(1, 2), matrix(c(10, 2, 2, 5), 2, 2),
+                 skewness = c(5, 2), kurtosis = c(3, 3))
+qqnorm(m)
+qqline(m)
+```
+
+
+```{r}
+# O código em R realiza um teste de normalidade de Shapiro-Wilk para a variável 'm'. Ele verifica se os dados em 'm' seguem uma distribuição normal. O resultado do teste fornecerá um valor-p que indica o quão provável é que 'm' seja normalmente distribuído. Quanto menor o valor-p, mais evidências contra a normalidade dos dados.
+
+shapiro.test(m)
+```
+```{r}
+# O código R exibe um histograma da variável 'm' com um título vazio. Em seguida, usando 'par(new=TRUE)', permite a sobreposição de gráficos. A terceira linha cria um gráfico de densidade da mesma variável, removendo rótulos dos eixos e definindo a largura da linha como 2.5.
+
+hist(m, main="")
+par(new=TRUE)
+plot(density(m),ylab = "", xlab = "", axes=F, lwd=2.5 ) 
+```
+

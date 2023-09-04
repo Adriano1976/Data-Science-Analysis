@@ -1,0 +1,38 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Amostragem Simples
+---
+Amostra Sistemática
+```{r}
+# Este código em R instala e carrega a biblioteca "TeachingSampling". A primeira linha instala o pacote "TeachingSampling" se ele ainda não estiver instalado no ambiente R. A segunda linha carrega a biblioteca "TeachingSampling" para que suas funções e recursos possam ser usados no código R.
+
+install.packages("TeachingSampling")
+library("TeachingSampling")
+```
+Amostra sistematica de tamanha 150, 10 grupos
+```{r}
+# O código cria uma amostra de dados aleatórios com 150 elementos, seguindo uma distribuição normal com média 0 e desvio padrão 1, usando a função `S.SY`. Em seguida, exibe a amostra criada.
+
+amostra = S.SY(150, 10)
+amostra
+```
+Tamanho
+```{r}
+# Este código parece ser em linguagem R ou similar e está tentando calcular as dimensões de uma variável chamada "amostra". A função "dim()" é usada para obter o número de linhas e colunas dessa variável. Portanto, essa linha de código retornará as dimensões (número de linhas e colunas) da variável "amostra".
+
+dim(amostra)
+```
+Usamos em iris
+```{r}
+# O código "amostrairis = iris[amostra,]" está indexando um conjunto de dados chamado "iris" usando uma variável chamada "amostra". Ele está selecionando as linhas do conjunto de dados "iris" especificadas pela variável "amostra" e armazenando essas linhas em um novo conjunto de dados chamado "amostrairis". Isso permite extrair uma amostra específica das linhas do conjunto de dados original "iris". Em seguida, ele exibe o conteúdo de "amostrairis". Isso é útil para visualizar um subconjunto das informações do conjunto de dados "iris" com base nos índices fornecidos.
+
+amostrairis = iris[amostra,]
+amostrairis
+```
+Tamanho
+```{r}
+# O código em R "dim(amostrairis)" serve para verificar as dimensões (número de linhas e colunas) do conjunto de dados "amostrairis", fornecendo informações sobre a sua estrutura.
+
+dim(amostrairis)
+```
+

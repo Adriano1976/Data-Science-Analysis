@@ -1,0 +1,58 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Amostragem Simples
+---
+Amostragem Estratificada
+```{r}
+# Esse código em R realiza duas ações: primeiro, ele instala o pacote 'sampling' usando o comando 'install.packages'. Em seguida, ele carrega o pacote 'sampling' para uso no ambiente R, tornando suas funções e recursos disponíveis no código. Isso é útil quando você precisa realizar amostragem estatística em conjuntos de dados no R.
+
+install.packages('sampling')
+library('sampling')
+```
+Proporção
+```{r}
+propocao = 25
+```
+Srswor amostra simples sem reposição, srswr com reposição, poisson, systematic
+a ordem de size é que está no conjunto de dados
+```{r}
+# Este código em R realiza amostragem estratificada na base de dados "iris", onde as estratas são as diferentes espécies de flores. Ele define tamanhos de amostra com base em proporções específicas para cada estrato e usa o método "srswor" para a amostragem sem reposição. O resultado é armazenado na variável "amostrairis2".
+
+amostrairis2=strata(
+  data=iris,
+  stratanames=c("Species"),
+  size=c(rep( propocao,3)), 
+  method="srswor"
+  )
+```
+Resultado
+```{r}
+# O comando "summary(amostrairis2)" está sendo usado para resumir estatisticamente um objeto chamado "amostrairis2", que provavelmente contém dados relacionados à íris. O resultado fornecerá informações estatísticas resumidas, como média, mediana, quartis e outros dados relevantes sobre as variáveis contidas em "amostrairis2". É uma maneira rápida de obter uma visão geral das estatísticas descritivas dos dados da íris.
+
+summary(amostrairis2)
+```
+Dados de infertilidade
+```{r}
+# O código "infert" representa um conjunto de dados chamado "infert". A função "summary(infert)" é usada para resumir estatisticamente as informações contidas nesse conjunto de dados, fornecendo estatísticas descritivas como média, mediana, quartis e outros resumos estatísticos relevantes.
+
+infert
+summary(infert)
+```
+Amostragem por estratos de education
+```{r}
+# O código em R realiza uma amostragem estratificada na base de dados "infert" com base na variável "education". Ele cria três estratos com tamanhos específicos (5, 48 e 47 observações) usando o método "srswor". Esse código é usado para selecionar uma amostra representativa da população, considerando a estrutura da variável "education".
+
+amostra=strata(
+  data=infert,
+  stratanames=c("education"),
+  size=c(5,48,47), 
+  method="srswor"
+  )
+```
+Resultado
+```{r}
+# O código "amostra" provavelmente se refere a um objeto ou variável em R. Em seguida, "summary(amostra)" solicita um resumo estatístico desse objeto, exibindo estatísticas descritivas, como média, mediana e quartis, para os dados contidos em "amostra". Essa função "summary" é comumente usada para entender a distribuição e as características dos dados de uma variável em análises estatísticas.
+
+amostra
+summary(amostra)
+```

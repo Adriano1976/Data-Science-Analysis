@@ -1,0 +1,48 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Amostragem Simples
+---
+Medidas de Centralidade e Variabilidade
+Dados dos jogadores
+```{r}
+# Esse código em R cria um vetor chamado "jogadores" que contém os salários de jogadores em unidades monetárias (não especificadas) em uma equipe esportiva. O vetor possui 9 elementos representando os salários individuais de cada jogador na equipe.
+
+jogadores = c(40000,18000,12000,250000,30000,140000,300000,40000,800000)
+```
+Média
+```{r}
+# Esse código em R calcula a média dos valores contidos no vetor "jogadores". Ele soma todos os valores e divide pelo número de elementos no vetor para obter a média. O resultado é a média aritmética dos valores em "jogadores".
+
+mean(jogadores)
+```
+Mediana
+```{r}
+# Esse código em R calcula a mediana dos valores contidos no vetor 'jogadores'. A função 'median' retorna o valor central quando os dados estão organizados em ordem crescente, sendo útil para encontrar o valor que divide a metade superior e inferior de um conjunto de dados numéricos.
+
+median(jogadores)
+```
+Quartis
+```{r}
+# O código em R calcula os quartis de um conjunto de dados chamado "jogadores" usando a função "quantile". Em seguida, ele imprime os valores dos quartis calculados. Esses quartis são estatísticas que dividem os dados em quatro partes iguais, representando os 25%, 50% e 75% dos valores do conjunto de dados.
+
+quartis  = quantile(jogadores)
+quartis
+```
+3º quartil
+```{r}
+# O código apresentado em R, `quartis[4]`, acessa o quarto elemento de um vetor ou lista chamado "quartis". Isso significa que ele retorna o valor armazenado na quarta posição desse vetor ou lista.
+
+quartis[4]
+```
+Desvio padrão
+```{r}
+# O código `sd(jogadores)` em R calcula o desvio padrão dos valores no vetor ou variável "jogadores". O desvio padrão é uma medida de dispersão que indica o quão os valores estão afastados da média, fornecendo uma ideia da variabilidade dos dados. Esse comando retorna o desvio padrão dos valores contidos em "jogadores".
+
+sd(jogadores)
+```
+Resumo
+```{r}
+# O código `summary(jogadores)` é usado em R para gerar um resumo estatístico dos dados contidos no objeto `jogadores`. Ele fornece informações como média, mediana, quartis e valores máximos e mínimos das variáveis numéricas presentes no conjunto de dados, permitindo uma rápida visão geral das estatísticas descritivas dos jogadores.
+
+summary(jogadores)
+```
