@@ -1,0 +1,49 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Anova
+---
+Anova
+Carrega dados
+```{r}
+# O código em R lê um arquivo CSV chamado "anova.csv" localizado em um diretório ".. /dados/" e utiliza o ponto e vírgula como separador de colunas. Em seguida, ele exibe os dados lidos do arquivo na variável "tratamento".
+
+tratamento = read.csv("../dados/anova.csv", sep=";")
+tratamento
+```
+Visulizamos os distribuição dos remedios por horas
+```{r}
+# Esse código em R cria um gráfico de caixa (boxplot) para visualizar a distribuição das variáveis "Horas" em relação às diferentes categorias da variável "Remédio" em um conjunto de dados chamado "tratamento". O gráfico permite observar a dispersão e a mediana das horas de tratamento para cada tipo de remédio, ajudando a identificar tendências e variações nos dados.
+# 
+boxplot(tratamento$Horas ~ tratamento$Remedio)
+```
+Executamos Análise de variância
+Observar valor de p maior que 0,05 (Pr(>F))
+Hipótese nula de que não há diferença significativa
+```{r}
+# O código em R está realizando uma análise de variância (ANOVA) com a variável "Horas" como resposta e a variável "Remedio" como fator de agrupamento. Em seguida, é gerado um resumo estatístico dos resultados da ANOVA para examinar as diferenças entre os grupos definidos por "Remedio".
+# 
+an =  aov(Horas ~ Remedio, data=tratamento)
+summary(an)
+```
+Anova de dois fatores
+Nenhum valor de P mostra diferença significativa
+```{r}
+# Esse código em R realiza uma análise de variância (ANOVA) em que a variável "Horas" é analisada em relação às variáveis "Remedio" e "Sexo", bem como à interação entre elas, usando o conjunto de dados "tratamento". A função `aov` é usada para realizar a ANOVA e, em seguida, `summary(an)` fornece um resumo estatístico dos resultados da análise. Esse código ajuda a entender como as variáveis "Remedio" e "Sexo" afetam a variável "Horas" e se há alguma interação significativa entre elas.
+# 
+an =  aov(Horas ~ Remedio * Sexo, data=tratamento)
+summary(an)
+```
+Se houver diferença o teste de Tukey é executado
+```{r}
+# O código em R realiza um teste de comparações múltiplas usando o método TukeyHSD para um conjunto de dados representado por "an". O resultado "tukey" contém as diferenças significativas entre os grupos, permitindo identificar quais grupos são estatisticamente diferentes entre si em termos de médias.
+# 
+tukey = TukeyHSD(an)
+tukey
+```
+Gráficos do teste
+
+```{r}
+# Esse código em R cria um gráfico de caixa (boxplot) para visualizar os resultados de um teste de comparações múltiplas de Tukey. O comando "plot(tukey)" gera um gráfico que exibe as diferenças entre grupos em um conjunto de dados, identificando quais grupos são estatisticamente diferentes uns dos outros com base nos resultados do teste de Tukey. O gráfico ajuda a identificar discrepâncias entre grupos e possíveis outliers.
+# 
+plot(tukey)
+```

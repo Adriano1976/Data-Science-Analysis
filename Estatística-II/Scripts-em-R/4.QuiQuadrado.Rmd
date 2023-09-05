@@ -1,0 +1,34 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Quiquadrado
+---
+Quiquadrado
+
+Criamos o conjunto de dados para teste
+```{r}
+# O código R cria uma matriz chamada "novela" com duas linhas e duas colunas. Os valores da matriz são inseridos sequencialmente a partir do vetor dado. Em seguida, são definidos os nomes das linhas e colunas da matriz. Por fim, a matriz "novela" é exibida, representando dados relacionados ao gênero (Masculino e Feminino) e se assistem ou não novelas (Assiste e Não Assiste).
+
+novela = matrix(c(19,6,43,32),nrow=2, byrow=T)
+rownames(novela) = c("Masculino","Feminino")
+colnames(novela) = c("Assiste","NaoAssiste")
+novela
+```
+Executar Quiquadrado
+Valor de p é maior que 0,05 não há evidências de diferença significativa (hipótese nula)
+```{r}
+# O código `chisq.test(novela)` em R realiza um teste Qui-Quadrado (chi-quadrado) de independência estatística para avaliar se existe uma associação entre as variáveis contidas no objeto 'novela'. Esse teste é utilizado para determinar se as frequências observadas em uma tabela de contingência são significativamente diferentes das frequências esperadas, o que ajudaria a entender se há uma relação entre as variáveis em questão.
+
+chisq.test(novela)
+```
+Alteramos a proporção de homens que assiste e não 
+Executamos o teste novamente, agora valor de p menor que 0,05
+```{r}
+# O código em R cria uma matriz chamada 'novela' com 2 linhas e 2 colunas, representando dados sobre a quantidade de pessoas do sexo masculino e feminino que assistem ou não a uma novela. Em seguida, o código realiza um teste qui-quadrado (chisq.test) para avaliar se existe uma associação estatisticamente significativa entre o gênero e o hábito de assistir à novela. O resultado do teste qui-quadrado é retornado como saída.
+
+novela = matrix(c(22,3,43,32),nrow=2, byrow=T)
+rownames(novela) = c("Masculino","Feminino")
+colnames(novela) = c("Assiste","NaoAssiste")
+novela
+chisq.test(novela)
+```
+
