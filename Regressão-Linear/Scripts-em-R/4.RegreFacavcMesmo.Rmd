@@ -1,0 +1,44 @@
+---
+Formação Cientista de Dados
+Regressão Linear - Faça você mesmo
+
+
+Franquias
+
+1. FranquiaAnual: Taxa Anual
+2. CustoInicial: Investimento Inicial
+
+# Criar um modelo de regressão linear para prever qual será o Investimento inicial necessário de uma franquia a partir da Taxa Anual cobrado pelo franqueador.
+
+---
+Importando os Dados
+```{r}
+# O código em R lê um arquivo CSV chamado "slr12.csv" localizado na pasta "../dados" e utiliza ";" como separador. Em seguida, ele exibe os dados lidos no console.
+
+dados = read.csv("../dados/slr12.csv",sep = ";")
+dados
+```
+Modelo
+```{r}
+# Esse código em R cria um modelo de regressão linear chamado "modelo", que busca relacionar a variável "CusInic" com a variável "FrqAnual" usando os dados fornecidos no objeto "dados". Em seguida, ele imprime o resumo desse modelo, incluindo informações sobre os coeficientes e a qualidade da regressão.
+
+modelo = lm(CusInic ~ FrqAnual, data=dados)
+modelo
+```
+
+```{r}
+# O código em R realiza um gráfico de dispersão entre duas variáveis, CusInic no eixo vertical e FrqAnual no eixo horizontal, usando os dados do conjunto 'dados'. Em seguida, ele adiciona uma linha reta ao gráfico com base em um modelo prévio especificado, provavelmente um modelo de regressão linear, que relaciona essas duas variáveis. Isso permite visualizar como os pontos de dados se ajustam à linha reta, indicando a relação entre as variáveis.
+
+plot(CusInic ~ FrqAnual, data=dados)
+abline(modelo)
+```
+
+```{r}
+# Esse código em R realiza uma previsão de custo inicial com base em um modelo. Primeiro, ele define o valor anual da franquia como 1300. Em seguida, utiliza esse valor para prever o custo inicial usando um modelo previamente treinado, armazenando o resultado na variável 'prev'. Por fim, ele formata a saída como "Previsão de Custo Inicial R$: X" e imprime o resultado, onde X é o valor previsto, arredondado para duas casas decimais.
+
+valr =  1300
+prev =  predict(modelo,data.frame(FrqAnual = valr))
+prev = paste0("Previsão de Custo Inicial R$: ",round(prev,2))
+print(prev)
+```
+

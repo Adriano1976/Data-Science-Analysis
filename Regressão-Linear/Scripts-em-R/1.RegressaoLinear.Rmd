@@ -1,0 +1,65 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Regressão Linear Simples
+---
+
+Cars: mostra a velocidade e distância de parada. 
+```{r}
+# Este código em R tem como objetivo instalar e carregar a biblioteca "corrgram". Em seguida, ele exibe os dados do conjunto de dados "cars" e verifica suas dimensões, ou seja, quantas linhas e colunas ele possui. O conjunto de dados "cars" é uma tabela com informações sobre carros, como velocidade e distância de frenagem.
+# 
+install.packages("corrgram")
+library(corrgram)
+cars
+dim(cars)
+```
+Correlação entre distância e velocidade de parada
+```{r}
+# Esse código em R realiza a análise de correlação entre duas variáveis, provavelmente relacionadas a dados de carros. Primeiro, ele calcula a correlação das variáveis no conjunto de dados "cars". Em seguida, cria um gráfico de matriz de correlação com painéis inferiores sombreados, painéis superiores em formato de gráfico de pizza e um painel de texto no centro, com o título "Carros".
+# 
+cor(cars)
+corrgram(cars, order=TRUE, lower.panel=panel.shade,
+         upper.panel=panel.pie, text.panel=panel.txt,
+         main="Carros")
+```
+Geramos o modelo usando função lm
+Queremos prever a velocidade que o carro estava baseado na distância de parada
+Interceptação e Inclinação o quanto a variável depe. aumenta com o aumento da variavel indepenente
+```{r}
+# Esse código em R cria um modelo de regressão linear simples, onde 'speed' é a variável dependente e 'dist' é a variável independente, usando os dados do conjunto 'cars'. Em seguida, ele imprime o resumo do modelo de regressão. Esse código é usado para analisar a relação entre a velocidade e a distância de parada de carros.
+# 
+modelo = lm(speed ~ dist, data=cars)
+modelo
+```
+Visualização da relação entre variáveis e linha de melhor ajuste
+```{r}
+# Esse código em R cria um gráfico de dispersão que mostra a relação entre a velocidade e a distância de carros. A função `plot` é usada para criar o gráfico, e `ylab` e `xlab` definem os rótulos dos eixos Y e X, enquanto `main` define o título do gráfico. A linha `abline(modelo)` adiciona uma linha ao gráfico com base em um modelo prévio ajustado, mas não podemos entender completamente sem informações adicionais sobre o modelo.
+# 
+plot(speed ~ dist, data=cars, ylab = "Velocidade", xlab=" Distância", main="Carros")
+abline(modelo)
+```
+Podemos fazer uma previsão usando diretamente os coeficientes
+Qual velocidade se levou 22 pra parar?
+```{r}
+# A primeira linha, `modelo$coefficients`, retorna os coeficientes de um modelo estatístico chamado "modelo". A segunda linha calcula uma estimativa com base nos coeficientes, onde `modelo$coefficients[1]` é o primeiro coeficiente e `modelo$coefficients[2]` é o segundo coeficiente, multiplicado pelo valor 22. Isso provavelmente está relacionado a alguma análise estatística usando esse modelo.
+
+modelo$coefficients
+modelo$coefficients[1] + modelo$coefficients[2] * 22
+```
+Usando predict
+```{r}
+# Este código utiliza a função "predict" para fazer uma previsão com um modelo estatístico chamado "modelo" em relação a uma distância (dist) de 22 unidades. O resultado será a previsão com base no modelo estatístico para essa distância específica.
+
+predict(modelo,data.frame(dist = 22))
+```
+Analisando melhor o modelo
+```{r}
+# O código R apresentado realiza as seguintes ações em relação a um modelo estatístico (chamado "modelo"): 1. `summary(modelo)` - Exibe um resumo estatístico do modelo, incluindo estatísticas como coeficientes, R-quadrado, erros padrão, entre outros. 2. `modelo$coefficients` - Mostra os coeficientes do modelo, que representam as estimativas dos parâmetros do modelo estatístico. 3. `modelo$residuals` - Apresenta os resíduos do modelo, que são as diferenças entre os valores observados e os valores previstos pelo modelo. 4. `hist(modelo$residuals)` - Gera um histograma dos resíduos, permitindo a análise da distribuição dos erros do modelo. 5. `modelo$fitted.values` - Retorna os valores previstos pelo modelo para os dados de entrada. 6. `plot(modelo$fitted.values, cars$dist)` - Cria um gráfico de dispersão que compara os valores previstos pelo modelo com os valores reais de uma variável chamada "dist" no conjunto de dados "cars".
+
+summary(modelo)
+modelo$coefficients
+modelo$residuals
+hist(modelo$residuals)
+modelo$fitted.values
+plot(modelo$fitted.values, cars$dist)
+```
+

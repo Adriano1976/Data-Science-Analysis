@@ -1,0 +1,80 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Regressão Linear Multipla
+---
+
+Carros,com consumo e outros aspectos
+mpg: consumo, hp cavalos, cyl numero de cilindros, disp cilindradas
+```{r}
+# Esse código em R instala e carrega a biblioteca 'corrgram', que é usada para criar gráficos de matriz de correlação. Em seguida, ele carrega o conjunto de dados 'mtcars', que contém informações sobre carros, e mostra as dimensões desse conjunto de dados (número de linhas e colunas).
+
+install.packages("corrgram")
+library(corrgram)
+mtcars
+dim(mtcars)
+```
+Correlação
+```{r}
+# Esse código em R calcula a matriz de correlação entre as quatro primeiras colunas do conjunto de dados "mtcars" e cria um gráfico de matriz de correlação. O gráfico mostra as correlações entre pares de variáveis com painéis inferiores sombreados, painéis superiores em forma de pizza e texto informativo no painel central, tudo relacionado a informações sobre carros.
+
+cor(mtcars[1:4])
+corrgram(mtcars[1:4], order=TRUE, lower.panel=panel.shade,
+         upper.panel=panel.pie, text.panel=panel.txt,
+         main="Carros")
+```
+Analisamos cilindradas vs consumo
+```{r}
+# Esse código R cria um gráfico de dispersão usando os dados do conjunto mtcars, representando o consumo de combustível (mpg) no eixo Y e as cilindradas (disp) no eixo X. O gráfico possui rótulos nos eixos e um título "Carros".
+
+plot(mtcars$mpg ~ mtcars$disp, ylab="Consumo", xlab="Cilindradas", main="Carros")
+```
+Modelo usando cilindradas para prever consumo
+Interceptação e Inclinação
+```{r}
+# Esse código R cria um modelo de regressão linear (modelo) usando a variável 'mpg' como a variável de resposta e 'disp' como a variável independente a partir dos dados do conjunto 'mtcars'. Em seguida, ele exibe o modelo criado. Em resumo, o código realiza uma análise de regressão linear para entender a relação entre o consumo de combustível (mpg) e a cilindrada (disp) dos carros no conjunto de dados 'mtcars'.
+
+modelo = lm(mpg ~ disp, data=mtcars)
+modelo
+```
+Coeficiente de Determinação (71% da variavel dependente é explicada pela variavel explanatória)
+R2 ajustado
+```{r}
+# Os comandos em R fornecem estatísticas de ajuste para um modelo estatístico chamado "modelo". O primeiro comando, `summary(modelo)$r.squared`, retorna o coeficiente de determinação (R-quadrado) que mede a proporção da variabilidade nos dados explicada pelo modelo. O segundo comando, `summary(modelo)$adj.r.squared`, retorna o R-quadrado ajustado, que leva em consideração o número de preditores no modelo, oferecendo uma medida mais precisa da qualidade do ajuste, penalizando modelos com muitos preditores.
+
+summary(modelo)$r.squared 
+summary(modelo)$adj.r.squared
+```
+Gráfico com linha do modelo
+```{r}
+# Esse código em R cria um gráfico de dispersão com os dados do conjunto 'mtcars', onde 'mpg' (milhas por galão) está no eixo Y e 'disp' (cilindradas) no eixo X. O comando 'abline(modelo)' adiciona uma linha ao gráfico com base em um modelo de regressão previamente definido, mas não temos informações sobre como esse modelo foi criado ou especificado. O gráfico possui rótulos nos eixos e um título indicando que ele representa informações sobre carros.
+
+plot(mpg ~ disp, data=mtcars,ylab="Consumo", xlab="Cilindradas", main="Carros")
+abline(modelo)
+```
+Prevendo consumo com 200 cilindradas
+```{r}
+# Esse código em R utiliza um modelo chamado 'modelo' para fazer uma previsão com base em um novo conjunto de dados que tem um valor de 'disp' igual a 200. Ele retorna a previsão gerada pelo modelo para esse valor específico de 'disp'.
+
+predict(modelo,data.frame(disp = 200))
+```
+Adicionamos mais duas variável indepedentes, hp e cilindros
+```{r}
+# Esse código R cria um modelo de regressão linear (lm) com a variável de resposta (mpg) sendo predita com base nas variáveis explicativas (disp, hp e cyl) usando os dados do conjunto mtcars. O resultado é a exibição do modelo de regressão criado.
+
+modelo = lm(mpg ~ disp +  hp + cyl, data=mtcars)
+modelo
+```
+Coeficiente de Determinação (71% da variavel dependente é explicada pela variavel explanatória)
+R2 ajustado
+```{r}
+# Os comandos em R `summary(modelo)$r.squared` e `summary(modelo)$adj.r.squared` são utilizados para obter informações sobre a qualidade de um modelo estatístico. O primeiro comando retorna o coeficiente de determinação R², que mede a proporção da variabilidade dos dados explicada pelo modelo. O segundo comando retorna o R² ajustado, que leva em consideração o número de variáveis independentes no modelo, fornecendo uma medida mais precisa da qualidade do ajuste. Em resumo, esses comandos ajudam a avaliar o quão bem o modelo se ajusta aos dados.
+
+summary(modelo)$r.squared 
+summary(modelo)$adj.r.squared
+```
+Prevendo consumo com 200 cilindradas, 100 hp e 4 cilindros
+```{r}
+# Esse código em R realiza uma previsão usando um modelo previamente treinado. Ele utiliza o modelo para fazer uma previsão com base em um novo conjunto de dados representado por um data frame com as características disp (200), hp (100) e cyl (4). O resultado será a previsão gerada pelo modelo para essas entradas específicas.
+
+predict(modelo,data.frame(disp = 200, hp=100, cyl=4))
+```
