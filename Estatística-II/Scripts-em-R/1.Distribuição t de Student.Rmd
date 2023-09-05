@@ -1,0 +1,24 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Distribuição t de Student
+---
+Salario de cientistas 75 por hora. Amostra 9. S=10. Qual a probabilidade de ser menor que 80 hora?
+t=1.5, graus de liberdade
+```{r}
+# O código `pt(1.5, 8)` em R é usado para realizar um teste t de uma amostra unica, onde o primeiro argumento `1.5` representa a média da amostra e o segundo argumento `8` é o tamanho da amostra. O resultado será o valor-p associado ao teste t, que é usado para avaliar a significância estatística da diferença entre a média da amostra e um valor de referência. Quanto menor o valor-p, mais evidência estatística existe para rejeitar a hipótese nula de que a média é igual ao valor de referência.
+
+pt(1.5, 8)
+```
+Qual a proabilidade de ser maior que 80
+```{r}
+# O código em R calcula a probabilidade de uma distribuição t-Student com 8 graus de liberdade ser maior que 1.5 (primeira linha) e depois calcula a probabilidade de ser menor que 1.5 (segunda linha) subtraindo o resultado de 1. Ambos os cálculos consideram a cauda superior da distribuição.
+
+pt(1.5,8,lower.tail=F)
+1 - pt(1.5,8)
+```
+Somando as 2 caudas
+```{r}
+# Esse código R calcula a probabilidade acumulada de uma distribuição t de Student com 8 graus de liberdade para valores maiores que 1.5 e, em seguida, adiciona a probabilidade da cauda superior (valores maiores que 1.5) da mesma distribuição, resultando no valor total da probabilidade. O resultado é a probabilidade combinada de encontrar valores maiores que 1.5 em uma distribuição t de Student com 8 graus de liberdade.
+
+pt(1.5, 8) + pt(1.5,8,lower.tail=F)
+```
