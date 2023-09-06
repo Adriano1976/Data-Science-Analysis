@@ -1,0 +1,55 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Tipos de Dados e Operadores
+---
+
+```{r}
+# O código declara uma variável chamada "delta" com o valor 8 e em seguida verifica a classe dela, mostrando que é do tipo numérico.
+
+delta = 8
+class(delta)
+```
+L declara como inteiro
+```{r}
+# Esse código em R define uma variável chamada "delta" com o valor 8 e depois verifica a classe (tipo) dessa variável, retornando "integer" (número inteiro).
+
+delta = 8L
+class(delta)
+```
+Outros tipos
+```{r}
+# O código em R define algumas variáveis, uma com um valor verdadeiro ou falso, e duas com texto, depois verifica e mostra o tipo das variáveis.
+
+logico = TRUE
+logico = F
+caractere = "Texto"
+caractere = 'Texto'
+class(caractere)
+class(logico)
+```
+Operações Matemáticas
+```{r}
+# O código define duas variáveis, c e d, com valores 2 e 4, e então calcula o resultado da soma de c e d multiplicado por d, atribuindo o resultado à variável e e mostrando o valor de e.
+
+c = 2
+d = 4
+(c + d) * d
+e = (c + d) * d
+e
+```
+Testes lógicos
+```{r}
+# Nesse código em R, duas variáveis, 'a' e 'b', recebem valores numéricos, e em seguida, ele verifica se 'a' é menor que 'b' e se 'a' é igual a 'b', retornando dois resultados de comparação.
+
+a = 1
+b = 2
+a < b
+a == b
+
+```
+Raiz Quadrada
+```{r}
+# Esse código em R calcula a raiz quadrada de 2500 e retorna o resultado.
+
+sqrt(2500)
+```

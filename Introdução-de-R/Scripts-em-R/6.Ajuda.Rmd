@@ -1,0 +1,12 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Ajuda
+---
+
+```{r}
+# Esse código em R mostra uma explicação sobre a função "sd" (desvio padrão) e exibe as primeiras linhas do conjunto de dados "iris".
+
+help(sd)
+head(iris)
+```
+

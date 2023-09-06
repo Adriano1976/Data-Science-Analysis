@@ -1,0 +1,25 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Pacotes
+---
+
+```{r}
+# Esse código em R instala e carrega uma biblioteca chamada "e1071" que contém funções e ferramentas úteis para análise estatística e mineração de dados.
+
+install.packages("e1071")
+library(e1071)
+```
+
+```{r}
+# Esse código em R remove e desliga o pacote "e1071" do ambiente de trabalho.
+
+detach("package:e1071", unload=TRUE)
+remove.packages("e1071")
+```
+
+```{r}
+# O código plota um gráfico que exibe os dados das quatro primeiras colunas do conjunto de dados "iris".
+
+plot(iris[,1:4])
+```
+
