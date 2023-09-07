@@ -1,0 +1,70 @@
+---
+Formação Cientista de Dados
+Regressão Logistica
+---
+Carga de dados
+```{r}
+# O código em R lê um arquivo chamado "Eleicao.csv" de um diretório superior ao atual, considerando que o arquivo está separado por ponto e vírgula e possui um cabeçalho. Em seguida, ele exibe os dados lidos do arquivo, provavelmente para visualização ou análise posterior.
+
+eleicao = read.csv("../dados/Eleicao.csv",sep=';',header=T)
+eleicao
+```
+Gráfico e visualização
+```{r}
+# No código apresentado em R, está sendo realizado um gráfico de dispersão com os dados da variável "DESPESAS" no eixo x e da variável "SITUACAO" no eixo y, presumivelmente para visualizar a relação entre despesas de campanha e a situação (provavelmente eleito ou não eleito) dos candidatos em uma eleição. Em seguida, é gerado um resumo estatístico dos dados contidos no conjunto de dados "eleicao". Esse resumo incluirá estatísticas como média, mediana e quartis das variáveis presentes no conjunto de dados, oferecendo uma visão geral das características principais dessas variáveis.
+
+plot(eleicao$DESPESAS,eleicao$SITUACAO)
+summary(eleicao)
+```
+Correlação
+```{r}
+# Esse código em R calcula a correlação entre duas variáveis em um conjunto de dados chamado "eleicao". Ele utiliza a função "cor" para determinar a correlação entre as variáveis "DESPESAS" e "SITUACAO". O resultado é um valor que indica a força e direção da relação entre essas duas variáveis, onde um valor positivo sugere uma correlação positiva, um valor negativo indica uma correlação negativa, e zero implica em ausência de correlação entre elas.
+
+cor(eleicao$DESPESAS,eleicao$SITUACAO)
+```
+Modelo de Regressão Logística
+```{r}
+# Neste código em R, estou ajustando um modelo de regressão logística (glm) para prever a variável "SITUACAO" com base na variável "DESPESAS" usando dados do conjunto "eleicao" e especificando que estamos lidando com uma distribuição binomial. Em seguida, o comando "summary(modelo)" é usado para obter um resumo estatístico do modelo ajustado, incluindo coeficientes, estatísticas de ajuste e p-valores para avaliar a importância das variáveis independentes no modelo. Esse código é útil para analisar a relação entre as despesas e a situação em um contexto de eleição.
+
+modelo = glm(SITUACAO ~ DESPESAS,data=eleicao,family="binomial") 
+summary(modelo)
+```
+Modelo comparado aos dados
+```{r}
+# Neste código em R, estamos criando um gráfico de dispersão (scatter plot) para visualizar a relação entre as variáveis "DESPESAS" e "SITUACAO". Os pontos vermelhos representam os dados reais da variável "SITUACAO" em relação às "DESPESAS". Além disso, os pontos com formato diferente (pch=4) representam os valores previstos pelo modelo (provavelmente um modelo de regressão) e são sobrepostos aos dados reais para que possamos comparar visualmente as previsões do modelo com os dados observados. É uma técnica comum para avaliar o desempenho de modelos estatísticos.
+
+plot(eleicao$DESPESAS,eleicao$SITUACAO,col='red',pch=20)
+points(eleicao$DESPESAS, modelo$fitted, pch=4)
+```
+Testar o modelo com os próprios candidatos
+```{r}
+# No código apresentado, estamos realizando uma previsão utilizando um modelo chamado "modelo" em um conjunto de dados chamado "eleicao". A função "predict" é usada para gerar previsões com base no modelo, e o argumento "type" define que estamos interessados nas probabilidades de resposta. Em seguida, a segunda linha de código verifica se as probabilidades são maiores ou iguais a 0,5, o que é comum em problemas de classificação binária. O resultado final é uma lista de valores booleanos indicando se cada observação tem uma probabilidade maior ou igual a 0,5.
+
+prever = predict(modelo,newdata=eleicao,type="response"  )
+prever = prever >= 0.5
+prever
+```
+Avaliar performance
+```{r}
+# Nesse código em R, estamos calculando uma matriz de confusão (variável `confusao`) para avaliar a precisão de um modelo de classificação. O modelo prevê valores (variável `prever`) e os compara com as observações reais da situação (variável `eleicao$SITUACAO`). Em seguida, calculamos a taxa de acerto (variável `taxaacerto`) como a soma dos valores da diagonal principal da matriz de confusão (representando previsões corretas) dividida pelo total de previsões. Essa taxa de acerto nos fornece uma medida da precisão do modelo de classificação.
+
+confusao = table(prever,eleicao$SITUACAO)
+confusao
+taxaacerto = (confusao[1] + confusao[4]) / sum(confusao)
+taxaacerto
+```
+Novos candidatos
+```{r}
+# No código apresentado em R, primeiro, estamos lendo um arquivo CSV chamado "NovosCandidatos.csv" localizado um diretório acima do diretório atual. Usamos o argumento "sep=';'" para indicar que o arquivo CSV está separado por ponto e vírgula e "header=T" para considerar a primeira linha como cabeçalho. Em seguida, a função "read.csv" lê o arquivo e armazena os dados na variável "prevereleicao". Por fim, o código imprime os dados contidos em "prevereleicao", exibindo as informações do arquivo CSV no console.
+
+prevereleicao = read.csv("../dados/NovosCandidatos.csv",sep=';',header=T)
+prevereleicao
+```
+Previsão
+```{r}
+# No código fornecido, está sendo realizada uma previsão de resultados de uma eleição. Primeiro, o modelo é utilizado para fazer a previsão dos resultados com base nos dados contidos em "prevereleicao" e armazenar essas previsões na variável "RESULT". Em seguida, os valores previstos são exibidos. Por fim, a terceira linha verifica se os valores previstos são maiores ou iguais a 0,5, o que geralmente é usado como um limite de decisão em problemas de classificação binária, indicando se um candidato venceu ou não a eleição.
+
+prevereleicao$RESULT = predict(modelo,newdata=prevereleicao,type="response") 
+prevereleicao$RESULT
+prevereleicao$RESULT >= 0.5
+```
