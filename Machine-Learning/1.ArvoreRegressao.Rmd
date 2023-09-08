@@ -1,0 +1,92 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Árvores de Decisão para Regressão
+---
+
+```{r}
+# Neste código em R, primeiro, são feitas tentativas de instalar os pacotes "rpart" e "forecast" (linhas comentadas), que podem ser necessários se ainda não estiverem instalados no ambiente. Em seguida, são carregadas as bibliotecas "rpart" e "forecast" usando a função "library", tornando suas funcionalidades disponíveis para uso no script. Essas bibliotecas são comumente usadas para análise de dados e modelagem de séries temporais, o que sugere que o código provavelmente se relaciona a tarefas relacionadas a essas áreas.
+
+#install.packages("rpart")
+#install.packages("forecast")
+library(rpart)
+library(forecast)
+```
+Conjunto de Dados
+```{r}
+# O código `iris` em R é uma referência a um conjunto de dados padrão chamado "Iris", frequentemente utilizado em análises estatísticas e visualização de dados. Esse conjunto de dados contém informações sobre três espécies de flores Iris, com medições das dimensões de suas pétalas e sépalas. É comumente utilizado para demonstrar técnicas de classificação e análise de dados, sendo uma ferramenta valiosa para a aprendizagem e prática em ciência de dados e estatísticas.
+
+iris
+```
+Criamos o modelo prevendo Sepal.Length
+```{r}
+#O código apresentado em R cria um modelo de árvore de decisão usando a biblioteca "rpart" para prever o comprimento da sépala das flores do conjunto de dados "iris" com base em três variáveis: largura da sépala, comprimento da pétala e espécie da flor. O modelo é armazenado na variável "modelo" e, em seguida, é exibido e resumido com as informações estatísticas relevantes. Essa análise ajuda a entender como as variáveis influenciam a previsão do comprimento da sépala nas flores do conjunto de dados "iris".
+
+modelo = rpart(Sepal.Length ~ Sepal.Width + Petal.Length +  Species ,data=iris)
+modelo
+summary(modelo)
+```
+Visualização
+```{r}
+# No código apresentado em R, estão sendo realizadas duas ações principais. Primeiramente, a função `plot(modelo)` cria um gráfico com base no objeto `modelo`. Em seguida, a função `text(modelo)` adiciona texto ao gráfico, possivelmente para incluir rótulos ou informações explicativas. Esse código é utilizado para visualizar e complementar gráficos gerados a partir do modelo em questão, facilitando a interpretação e comunicação de resultados.
+
+plot(modelo)
+text(modelo)
+```
+Previsão
+```{r}
+# No código apresentado, estamos realizando uma previsão (predição) utilizando um modelo (modelo) em um conjunto de dados chamado "iris". O comando "predict" é utilizado para aplicar esse modelo aos dados e obter as previsões. Em seguida, utilizamos "head" para visualizar as primeiras linhas das previsões. Esse código é comumente usado em análises estatísticas para avaliar o desempenho de modelos de machine learning em relação aos dados de entrada, no caso, o conjunto "iris".
+
+predicao = predict(modelo, iris)
+head(predicao)
+```
+Comparamos previsão com dados reais
+```{r}
+# No código fornecido, a função `cbind` está sendo usada para combinar três colunas de dados em um novo conjunto de dados chamado "comparacao". As colunas são "predicao", que contém valores previstos, "iris$Sepal.Length", que contém comprimentos das sépalas de flores íris, e "predicao - iris$Sepal.Length", que calcula a diferença entre as previsões e os comprimentos reais das sépalas. O resultado é uma matriz que exibe esses três conjuntos de dados lado a lado, permitindo a comparação entre as previsões e os valores reais. A função `head` é usada para mostrar as primeiras linhas desse conjunto de dados.
+
+comparacao = cbind(predicao,iris$Sepal.Length,predicao - iris$Sepal.Length )
+head(comparacao)
+```
+Verificamos métricas de erro de nosso modelo
+```{r}
+# O código acima calcula a precisão de um modelo de predição (representado por "predicao") em relação aos valores reais da variável "Sepal.Length" do conjunto de dados "iris". Ele compara as previsões do modelo com os valores reais da variável e fornece uma medida de quão bem o modelo está performando, indicando a proporção de previsões corretas em relação ao comprimento das sépalas das flores do conjunto de dados "iris".
+
+accuracy(predicao,iris$Sepal.Length)
+```
+
+A tabela acima trata das métricas de precisão de um modelo de predição para a variável "Sepal.Length" do conjunto de dados "iris". As métricas são calculadas usando os dados de teste do conjunto de dados, que são dados que não foram usados para treinar o modelo.
+
+**ME** (Mean Error) é a média dos erros entre as previsões do modelo e os valores reais da variável.
+
+**RMSE** (Root Mean Square Error) é a raiz quadrada da média dos erros ao quadrado entre as previsões do modelo e os valores reais da variável.
+
+**MAE** (Mean Absolute Error) é a média dos erros absolutos entre as previsões do modelo e os valores reais da variável.
+
+**MPE** (Mean Percentage Error) é a média dos erros percentuais entre as previsões do modelo e os valores reais da variável.
+
+**MAPE** (Mean Absolute Percentage Error) é a média dos erros percentuais absolutos entre as previsões do modelo e os valores reais da variável.
+
+Com base nos valores da tabela, podemos concluir que o modelo de predição está performando bem para a variável "Sepal.Length". O ME é próximo de zero, o que indica que as previsões do modelo são, em média, próximas dos valores reais da variável. O RMSE e o MAE também são relativamente baixos, o que indica que as previsões do modelo são, em média, próximas dos valores reais da variável. O MPE e o MAPE também são relativamente baixos, o que indica que as previsões do modelo não estão muito longe dos valores reais da variável.
+
+A seguir, uma interpretação detalhada de cada métrica:
+
+**ME**
+
+O ME é uma medida simples da distância média entre as previsões do modelo e os valores reais da variável. Um ME baixo indica que as previsões do modelo são, em média, próximas dos valores reais da variável.
+
+**RMSE**
+
+O RMSE é uma medida mais robusta do erro do modelo do que o ME. Ele é calculado tomando a raiz quadrada da média dos erros ao quadrado entre as previsões do modelo e os valores reais da variável. Um RMSE baixo indica que as previsões do modelo estão, em média, próximas dos valores reais da variável.
+
+**MAE**
+
+O MAE é outra medida robusta do erro do modelo. Ele é calculado tomando a média dos erros absolutos entre as previsões do modelo e os valores reais da variável. Um MAE baixo indica que as previsões do modelo estão, em média, próximas dos valores reais da variável.
+
+**MPE**
+
+O MPE é uma medida do erro percentual do modelo. Ele é calculado tomando a média dos erros percentuais entre as previsões do modelo e os valores reais da variável. Um MPE baixo indica que as previsões do modelo não estão muito longe dos valores reais da variável.
+
+**MAPE**
+
+O MAPE é uma medida do erro percentual absoluto do modelo. Ele é calculado tomando a média dos erros percentuais absolutos entre as previsões do modelo e os valores reais da variável. Um MAPE baixo indica que as previsões do modelo não estão muito longe dos valores reais da variável.
