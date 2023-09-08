@@ -1,0 +1,87 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Naive Bayes
+---
+
+```{r}
+# O código em R que você compartilhou tem como objetivo instalar e carregar a biblioteca "e1071". Primeiro, ele verifica se a biblioteca "e1071" está instalada e, se não estiver, tenta instalá-la usando o comando "install.packages". Em seguida, ele carrega a biblioteca recém-instalada com "library(e1071)". Isso permite que você utilize as funções e recursos disponíveis na biblioteca "e1071" em seu ambiente de programação R.
+
+#install.packages("e1071")
+library(e1071)
+```
+Dados de Crédito de Banco Alemão
+```{r}
+# Nesse código em R, primeiro, estamos lendo um arquivo CSV chamado "Credit.csv" de um diretório "../dados/" e armazenando seus dados na variável "credito". Em seguida, usamos a função "head" para mostrar as primeiras linhas desse conjunto de dados, o que nos permite dar uma olhada rápida em suas primeiras observações. Por fim, utilizamos "dim" para obter as dimensões do conjunto de dados, ou seja, o número de linhas (observações) e colunas (variáveis), o que nos ajuda a ter uma visão geral do tamanho do conjunto de dados.
+
+credito = read.csv("../dados/Credit.csv")
+head(credito)
+dim(credito)
+```
+Transformamos a classe em fator
+```{r}
+# Nesse trecho de código em R, está sendo realizada uma conversão da variável "class" do dataframe "credito" para o tipo de dado fator (factor), que é usado para representar variáveis categóricas. Essa conversão é útil em análises estatísticas, pois permite que o R trate essa variável como um conjunto finito de categorias, facilitando a realização de operações e análises específicas para dados categóricos.
+
+# Convertendo a coluna 'class' para um fator
+credito$class <- as.factor(credito$class)
+```
+Separamos dados de treino e teste
+```{r}
+# Este código em R realiza uma amostragem aleatória com reposição de 1000 observações, onde a probabilidade de selecionar o valor 1 é de 70% e o valor 2 é de 30%. Em seguida, ele divide o conjunto de dados 'credito' em dois subconjuntos: 'creditotreino', que contém as observações com valor 1 na amostra, e 'creditoteste', que contém as observações com valor 2 na amostra. Essa divisão é comum em análises de dados para criar conjuntos de treinamento e teste.
+
+# Gerar uma amostra aleatória com reposição
+amostra <- sample(1:2, 1000, replace = TRUE, prob = c(0.7, 0.3))
+
+# Exibir a amostra
+amostra
+
+# Dividir o conjunto de dados "credito" em conjuntos de treinamento e teste com base na amostra
+creditotreino <- credito[amostra == 1, ]
+creditoteste <- credito[amostra == 2, ]
+```
+Dimensões dos conjuntos
+```{r}
+# Nesse código em R, estamos utilizando a função "dim" para verificar as dimensões dos conjuntos de treino e teste de um dataset chamado "creditotreino" e "creditoteste", respectivamente. Essa análise nos permite entender o número de linhas e colunas em cada conjunto de dados, o que é crucial para avaliar a estrutura e a consistência dos conjuntos utilizados em análises subsequentes.
+
+# Verificar as dimensões dos conjuntos de treino e teste do crédito
+dim(creditotreino)
+dim(creditoteste)
+```
+Criamos o modelo
+```{r}
+# Esse código em R cria e treina um modelo de classificação Naive Bayes usando o conjunto de dados "creditotreino". O modelo resultante é armazenado na variável "modelo" e pode ser usado para fazer previsões com base nos atributos do conjunto de dados. Em seguida, ele imprime o modelo treinado na tela. O algoritmo Naive Bayes é comumente usado para classificação, e aqui ele está sendo aplicado ao problema representado pelo conjunto de dados "creditotreino".
+
+modelo <- naiveBayes(class ~., creditotreino)
+modelo
+```
+Previsão
+```{r}
+# Neste código, está sendo realizada uma previsão utilizando um modelo previamente treinado, representado pela variável 'modelo', sobre um conjunto de dados de teste chamado 'creditoteste'. A função 'predict' é usada para gerar as previsões com base no modelo, e o resultado é armazenado na variável 'predicao'. Em seguida, as previsões são exibidas no console, permitindo avaliar os resultados do modelo.
+
+predicao <- predict(modelo,creditoteste)
+predicao
+```
+Matriz de Confusão
+```{r}
+# No código apresentado, está sendo calculada a matriz de confusão para avaliar a performance de um modelo de classificação. A matriz 'confusao' é criada usando a função 'table', comparando as classes reais (creditoteste$class) com as previsões (predicao). Em seguida, são calculadas as taxas de acerto e erro do modelo. A taxa de acerto é obtida somando os valores nas posições (1,1) e (2,2) da matriz de confusão e dividindo pelo total de elementos na matriz. A taxa de erro é calculada somando os valores nas posições (1,2) e (2,1) da matriz de confusão e dividindo pelo total de elementos na matriz.
+
+# Calcular a matriz de confusão
+confusao <- table(creditoteste$class, predicao)
+confusao
+
+# Calcular a taxa de acerto
+taxaacerto <- (confusao[1] + confusao[4]) / sum(confusao)
+taxaacerto
+
+# Calcular a taxa de erro
+taxaerro <- (confusao[2] + confusao[3]) / sum(confusao)
+taxaerro
+
+```
+
+
+```{r}
+```
+
+

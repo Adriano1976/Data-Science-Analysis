@@ -1,0 +1,96 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Contribuição: Adriano Santos
+
+
+  Hierárquico - O código abaixo começa com um comentário que indica a instalação do pacote "gridExtra," mas a instalação está comentada com um hashtag (#), o que significa que não está sendo executada. Em seguida, a biblioteca "factoextra" é carregada. Essa biblioteca é usada para realizar análises de fatores e componentes principais em R. Em resumo, o código prepara o ambiente de trabalho para utilizar as funções do pacote "factoextra" após o carregamento da biblioteca.
+---
+
+```{r}
+# Instalação do pacote necessário
+# install.packages("gridExtra", dependencies = TRUE)
+
+# Carregamento do pacote
+library(factoextra)
+
+```
+
+Cria o cluster - O código abaixo realiza uma análise de agrupamento hierárquico no conjunto de dados "iris", excluindo a coluna de espécies (coluna 5), com o objetivo de formar 3 clusters usando o método de ligação completa e padronizando os dados. Em seguida, ele exibe a estrutura do cluster resultante, mostrando como os dados foram agrupados em três clusters distintos com base em suas características, como comprimento e largura das sépalas e pétalas das flores.
+
+```{r}
+
+# Carregamento do pacote necessário
+library(factoextra)
+library(cluster)
+
+# Criação do cluster
+hc <- hcut(iris[, -5], k = 3, hc_method = "complete", stand = TRUE)
+
+# Visualização do cluster
+hc
+
+```
+
+  Dendograma - No código abaixo, o comando `plot(hc)` é utilizado para gerar um gráfico a partir de um objeto chamado `hc`. Este gráfico provavelmente está relacionado a uma análise de cluster hierárquico, com o objetivo de visualizar a estrutura de agrupamento dos dados. O código não fornece detalhes sobre as configurações específicas do gráfico, como cores, rótulos ou tipo de gráfico, mas a função `plot` geralmente é usada para criar uma representação visual dos resultados de uma análise de cluster, permitindo a identificação de padrões e grupos nos dados.
+
+```{r}
+# Carregamento dos pacotes necessários
+library(cluster)
+library(graphics)
+
+# Visualização do cluster hierárquico
+plot(hc)
+
+```
+
+  Dendograma - No código abaixo, está sendo criado um gráfico de dendrograma a partir de um modelo de cluster hierárquico previamente construído (representado por 'hc'). O parâmetro 'show_labels' está configurado como FALSO, o que significa que as etiquetas dos clusters não serão exibidas no gráfico. Além disso, 'rect' está definido como VERDADEIRO, indicando que retângulos serão desenhados em torno dos clusters. O tema visual 'theme_bw()' está sendo aplicado ao gráfico, e o título "Cluster Hierárquico" é definido como título principal. Por fim, o gráfico é plotado usando 'plot(g1)'. Esse código é útil para visualizar a estrutura de clusters em uma análise de agrupamento hierárquico.
+
+```{r}
+# Carregamento dos pacotes necessários
+library(factoextra)
+library(ggplot2)
+
+# Criação do dendrograma
+g1 <- fviz_dend(
+  hc,
+  show_labels = FALSE,
+  rect = TRUE,
+  ggtheme = theme_bw(),
+  main = "Cluster Hierárquico"
+)
+
+# Visualização do dendrograma
+plot(g1)
+
+```
+
+Cluster - No código abaixo, é realizada uma visualização de clusters hierárquicos usando a função `fviz_cluster` do pacote R. Os clusters são representados por elipses normais, e a visualização é estilizada com um tema de fundo branco. O título do gráfico é definido como "Cluster Hierárquico". Em seguida, o gráfico é plotado. Esse código é útil para a análise e visualização de grupos em dados hierárquicos, com a estilização e título especificados para melhor compreensão.
+
+```{r}
+# Criação do gráfico de cluster
+g2 <- fviz_cluster(
+  hc,
+  ellipse.type = "norm",
+  ggtheme = theme_bw(),
+  main = "Cluster Hierárquico"
+)
+
+# Visualização do gráfico
+plot(g2)
+```
+  
+  Comparação - No código abaixo, estão sendo criados dois gráficos, representados por `g1` e `g2`, e posteriormente exibidos usando a função `plot()`. Esta sequência de comandos permite visualizar esses gráficos na saída, mas para uma compreensão completa, seria necessário conhecer o conteúdo e os detalhes de como `g1` e `g2` foram criados, bem como qualquer personalização adicional dos gráficos, que não está presente no código fornecido.
+  
+```{r}
+# Visualização dos gráficos
+plot(g1)
+plot(g2)
+```
+
+Na primeira imagem enviada é um gráfico de um cluster hierárquico. É um tipo de visualização de dados que mostra como os pontos de dados estão relacionados uns aos outros. O gráfico é composto por uma série de linhas e retângulos que representam os pontos de dados. As linhas conectam os pontos de dados e os retângulos representam os clusters. O gráfico é codificado por cores para mostrar os diferentes clusters. O gráfico é intitulado "Cluster Hierárquico" e possui um eixo y rotulado como "Altura" e um eixo x rotulado como "Cluster".
+
+Este gráfico parece mostrar a análise de cluster hierárquico de algum conjunto de dados. A análise de cluster hierárquico é uma técnica utilizada para agrupar objetos semelhantes em grupos, ou clusters, com base em sua proximidade ou similaridade. Neste caso, parece que os dados foram divididos em vários clusters, com base na altura indicada no eixo y. 
+
+Na segunda imagem enviada é um gráfico de dispersão de pontos de dados em três clusters. Os clusters são codificados por cores em vermelho, verde e azul. O gráfico é intitulado "Cluster Hierárquico" e possui duas dimensões, Dim1 e Dim2. Os pontos de dados são rotulados com números. O gráfico parece ser uma visualização de algum tipo de análise de dados.
+
+Este gráfico parece mostrar a análise de cluster de algum conjunto de dados. A análise de cluster é uma técnica utilizada para agrupar objetos semelhantes em grupos, ou clusters. Neste caso, parece que os dados foram divididos em três clusters distintos. 

@@ -1,0 +1,78 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Árvores de Decisão para Classificação
+---
+
+```{r}
+# Esse código em R inicia instalando o pacote 'rpart', caso não esteja instalado, embora essa linha esteja comentada. Em seguida, ele carrega esse pacote na sessão atual com a função 'library(rpart)'. O pacote 'rpart' é frequentemente utilizado para construir modelos de árvores de decisão, que são uma técnica de aprendizado de máquina amplamente usada para tarefas de classificação e regressão.
+
+#install.packages('rpart',dependencies=T)
+library(rpart)
+```
+Carrega dados de credito e separa em treino e teste
+```{r}
+# Neste código em R, estamos realizando uma operação de leitura de dados de um arquivo chamado "Credit.csv" e armazenando esses dados na variável "credito". Em seguida, criamos uma amostra aleatória de 1000 observações, onde as probabilidades de seleção são definidas como 70% para a primeira categoria (1) e 30% para a segunda categoria (2). Essa amostra é usada para dividir o conjunto de dados original em dois subconjuntos: "creditotreino", que conterá os dados com a categoria 1 da amostra, e "creditoteste", que conterá os dados com a categoria 2 da amostra. Isso é útil para criar conjuntos de treinamento e teste em análises de machine learning.
+
+credito = read.csv("../dados/Credit.csv")
+credito
+amostra = sample(2,1000,replace=T, prob=c(0.7,0.3))
+creditotreino = credito[amostra==1,]
+creditoteste = credito[amostra==2,]
+```
+Cria modelo, método para classificação
+```{r}
+# No código apresentado em R, uma árvore de decisão é construída usando o conjunto de dados 'creditotreino' para prever a variável 'class'. A função 'rpart' é usada para criar a árvore, onde '~ .' indica que todas as variáveis do conjunto de dados são consideradas para a predição. O método "class" especifica que a árvore é usada para classificação. Em seguida, o código imprime a árvore de decisão resultante, exibindo suas regras de divisão e nós. Essa abordagem é útil para entender como o modelo toma decisões com base nas características dos dados.
+
+arvore = rpart(class ~ ., data=creditotreino,  method="class")
+print(arvore)
+```
+Impressão da árvore
+```{r}
+# Nesse código em R, primeiro estamos gerando um gráfico a partir do objeto "arvore" usando a função "plot", que provavelmente representa uma árvore de decisão ou similar. Em seguida, a função "text" é usada para adicionar rótulos aos nós da árvore. Os argumentos "use.n=TRUE" e "all=TRUE" indicam que todos os nós da árvore devem ser rotulados, e "cex=.8" controla o tamanho dos rótulos. Essa combinação de funções é útil para visualizar informações detalhadas em uma árvore de decisão, tornando-a mais compreensível.
+
+plot(arvore)
+text(arvore, use.n=TRUE, all=TRUE, cex=.8)
+```
+Previsao
+```{r}
+# Nesse código em R, a variável "teste" está sendo utilizada para armazenar as previsões feitas por um modelo de árvore (provavelmente de decisão) chamado "arvore" sobre um conjunto de dados de teste chamado "creditoteste". Em seguida, a função "head(teste)" é usada para exibir as primeiras linhas desse conjunto de previsões. Em resumo, o código faz previsões com base no modelo "arvore" e mostra as primeiras previsões resultantes.
+
+teste = predict(arvore,newdata=creditoteste)
+head(teste)
+```
+Adiciona a coluna teste a creditoteste
+
+```{r}
+# Claro, o código em R realiza uma operação de união de colunas usando a função `cbind()`. Ele combina os dados contidos nas variáveis `creditoteste` e `teste` em uma única estrutura de dados chamada `cred`, onde as colunas de `creditoteste` são seguidas pelas colunas de `teste`. Em seguida, o código exibe o conteúdo da variável `cred`. Esse comando é útil para agrupar informações de diferentes fontes ou para realizar operações conjuntas em duas variáveis de dados.
+
+cred = cbind(creditoteste,teste)
+cred
+```
+Cria coluna com resultado categórico
+```{r}
+# Nesse código em R, uma nova coluna chamada 'Result' está sendo adicionada ao dataframe 'cred'. O valor dessa coluna é determinado usando a função 'ifelse'. Ela verifica se os valores na coluna 'bad' são maiores ou iguais a 0,5 e atribui "bad" se a condição for verdadeira ou "good" se for falsa. O resultado é então exibido no dataframe 'cred'. Esse código classifica os dados com base em um limite de 0,5 na coluna 'bad', rotulando-os como 'bad' ou 'good'.
+
+cred['Result'] = ifelse(cred$bad>=0.5,"bad","good")
+cred
+```
+Matriz de Precisão
+```{r}
+# O código em R acima calcula a precisão de um modelo de classificação. Ele cria uma tabela de contingência 'precisao' que conta as ocorrências das classes reais (cred$class) em comparação com as classes previstas (cred$Result). Em seguida, calcula a taxa de acerto (taxaacerto) somando as ocorrências das classes verdadeiras (1 e 4) e dividindo pelo total de ocorrências na tabela. Isso fornece a proporção de previsões corretas em relação ao total de previsões, representando a precisão do modelo.
+
+# Calcular a precisão da tabela de classificação
+precisao <- table(cred$class, cred$Result)
+
+# Exibir a precisão
+precisao
+
+# Calcular a taxa de acerto
+taxa_acerto <- (precisao[1] + precisao[4]) / sum(precisao)
+
+# Exibir a taxa de acerto
+taxa_acerto
+
+```
+
+

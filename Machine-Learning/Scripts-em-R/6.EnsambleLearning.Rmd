@@ -1,0 +1,91 @@
+---
+Formação Cientista de Dados - Ensamble Learning
+Colaboração: Adriano Santos
+---
+
+```{r}
+# Instalar o pacote 'randomForest' se ainda não estiver instalado
+# install.packages('randomForest')
+
+# Carregar a biblioteca 'randomForest'
+library(randomForest)
+
+# Ler o arquivo CSV de crédito (certifique-se de que o caminho do arquivo está correto)
+credito <- read.csv('../dados/credit.csv')
+
+# Transformar a coluna 'class' em um fator
+credito$class <- as.factor(credito$class)
+
+# Exibir as primeiras linhas do dataframe 'credito'
+head(credito)
+
+```
+
+Separa dados de treino e teste
+
+```{r}
+# Esse código em R realiza a divisão de um conjunto de dados chamado "credito" em dois subconjuntos: "creditotreino" e "creditoteste". Ele faz isso aleatoriamente, selecionando 1000 observações com base em uma probabilidade de 70% para o conjunto de treinamento e 30% para o conjunto de teste. Isso é útil para criar amostras representativas de dados para desenvolver e testar modelos de machine learning.
+
+# Gerar uma amostra com reposição
+amostra <- sample(1:2, 1000, replace = TRUE, prob = c(0.7, 0.3))
+
+# Separar os dados de treinamento e teste com base na amostra
+creditotreino <- credito[amostra == 1, ]
+creditoteste <- credito[amostra == 2, ]
+
+```
+
+Gera o modelo
+
+```{r}
+# O código realiza a construção de um modelo de Random Forest para classificação utilizando os dados do conjunto de treinamento 'creditotreino'. Ele cria uma floresta com 100 árvores de decisão, habilitando o cálculo da importância das variáveis. Em seguida, o código gera um gráfico que representa a floresta construída. Isso é útil para visualizar a estrutura do modelo de classificação Random Forest e entender a importância relativa das variáveis no processo de classificação.
+
+# Carregar a biblioteca randomForest se ainda não estiver carregada
+if (!require(randomForest)) {
+  install.packages("randomForest")
+  library(randomForest)
+}
+
+# Criar o modelo de floresta aleatória
+floresta <- randomForest(class ~ ., data = creditotreino, ntree = 100, importance = TRUE)
+
+# Visualizar o modelo
+floresta
+
+# Plotar o modelo
+plot(floresta)
+
+```
+
+Previsão
+
+```{r}
+# No código apresentado, a variável 'previsao' recebe as previsões geradas pelo modelo 'floresta' para o conjunto de dados 'creditoteste'. Em seguida, essas previsões são exibidas. Logo depois, a matriz de confusão é calculada usando a função 'table', comparando as previsões feitas com as classes reais presentes em 'creditoteste$class'. A matriz de confusão é uma ferramenta útil para avaliar o desempenho de modelos de machine learning, mostrando quantas previsões estão corretas e quantas estão incorretas para cada classe.
+
+# Realiza a previsão usando o modelo 'floresta' nos dados de teste 'creditoteste'
+previsao <- predict(floresta, creditoteste)
+
+# Exibe as previsões
+previsao
+
+# Cria uma matriz de confusão para avaliar a precisão das previsões
+confusao <- table(previsao, creditoteste$class)
+
+# Exibe a matriz de confusão
+confusao
+
+```
+
+Avaliação de Performance
+
+```{r}
+# Esse código em R calcula a taxa de acerto de um modelo de classificação com base em uma matriz de confusão chamada "confusao". Ele faz isso somando os valores na diagonal principal da matriz (que representam as previsões corretas) e divide esse valor pela soma de todos os elementos da matriz, o que resulta na taxa de acerto do modelo. O resultado é armazenado na variável "taxaacerto" e é exibido. Esse cálculo é útil para avaliar o desempenho de um modelo de machine learning em relação à sua capacidade de prever corretamente as classes.
+
+# Cálculo da Taxa de Acerto
+taxa_acerto <- (confusao[1] + confusao[4]) / sum(confusao)
+
+# Exibição da Taxa de Acerto
+taxa_acerto
+
+```
+

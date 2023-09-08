@@ -1,0 +1,73 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Dimensionamento de Características
+---
+
+```{r}
+# O código apresentado em R, simplesmente chama o conjunto de dados "iris". Esse conjunto de dados é um dos mais conhecidos na análise de dados e contém informações sobre três espécies diferentes de flores (setosa, versicolor e virginica), com medições de comprimento e largura das sépalas e pétalas. Esses dados podem ser usados para realizar análises estatísticas, visualizações ou treinar modelos de aprendizado de máquina para classificação ou regressão, dependendo do objetivo do projeto.
+
+# Carregar o conjunto de dados iris
+data(iris)
+
+# Exibir as primeiras linhas do conjunto de dados
+head(iris)
+
+```
+
+Padronização
+
+```{r}
+# Nesse código em R, estamos padronizando os dados do famoso conjunto de dados "iris". A função `scale` é usada para padronizar as colunas 1 a 4 do conjunto de dados, o que significa que estamos transformando essas variáveis para que tenham média zero e desvio padrão igual a um. O resultado é a exibição dos dados padronizados. Esse processo é comum em análise de dados para garantir que as variáveis tenham a mesma escala, facilitando a comparação e análise estatística.
+
+# Carregar a biblioteca necessária para a escala
+library(stats)
+
+# Realizar a escala dos primeiros quatro atributos do conjunto de dados iris
+iris_padrao <- scale(iris[, 1:4])
+
+# Exibir o conjunto de dados padronizado
+iris_padrao
+
+```
+
+Função para Normalização
+
+```{r}
+# Esse código é uma função em linguagem R que realiza a normalização de um conjunto de dados. Ela recebe como entrada um vetor 'x' e, usando a fórmula (x - mínimo(x)) / (máximo(x) - mínimo(x)), calcula os valores normalizados, ou seja, ajusta os valores para um intervalo entre 0 e 1. Isso é útil em análises estatísticas e de machine learning para garantir que todas as variáveis tenham a mesma escala, evitando distorções nos resultados devido a diferenças nas unidades de medida. A função retorna o vetor 'x' normalizado.
+
+normaliza = function(x) {
+  x_normalizado = (x - min(x)) / (max(x) - min(x))
+  return(x_normalizado)
+}
+
+```
+
+Aplica normalização
+
+```{r}
+# Nesse código em R, está sendo realizado o processo de normalização dos dados do conjunto de dados "iris". A função "normaliza" está sendo aplicada às quatro primeiras colunas do conjunto (que representam medidas de características de flores) para padronizar seus valores, geralmente resultando em valores entre 0 e 1. Em seguida, o conjunto de dados normalizado é exibido na saída. Esse procedimento é útil para garantir que as características tenham a mesma escala, o que pode ser importante em análises estatísticas e de aprendizado de máquina.
+
+# Normalizando os dados usando a função scale()
+iris_norm <- scale(iris[, 1:4])
+
+# Imprimindo os dados normalizados
+print(iris_norm)
+
+```
+Compara os dois modelos
+
+```{r}
+# Nesse código, são gerados três gráficos de boxplot usando a biblioteca R. O primeiro exibe os dados originais do conjunto de dados "iris", representando visualmente a distribuição das quatro variáveis numéricas. O segundo e terceiro gráficos mostram os dados após serem padronizados e normalizados, respectivamente, permitindo a comparação das distribuições após essas transformações estatísticas. O parâmetro "main" define os títulos dos gráficos para indicar o que cada um representa. Essa análise gráfica é útil para identificar discrepâncias e tendências nos dados.
+
+# Criar um gráfico de boxplot para os dados originais
+boxplot(iris[, 1:4], main = "Dados Originais")
+
+# Criar um gráfico de boxplot para os dados padronizados
+boxplot(iris_padr, main = "Padronizados")
+
+# Criar um gráfico de boxplot para os dados normalizados
+boxplot(iris_norm, main = "Normalizados")
+
+```

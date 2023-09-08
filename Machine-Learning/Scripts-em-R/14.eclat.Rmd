@@ -1,0 +1,56 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Constribuição: Adriano Santos
+
+
+  Eclat - O código abaixo começa instalando os pacotes "arules" e "arulesViz", que são essenciais para análise de regras de associação. Em seguida, ele carrega esses pacotes usando a função "library". O pacote "arules" é usado para criar e manipular regras de associação, enquanto o "arulesViz" é responsável por visualizar essas regras. Esses passos são fundamentais para realizar análises de mineração de dados relacionadas a padrões de associação, como em sistemas de recomendação ou análise de cestas de compras.
+---
+
+```{r}
+# Instalação dos pacotes, caso ainda não estejam instalados
+#install.packages("arules")
+#install.packages("arulesViz")
+
+# Carregamento das bibliotecas necessárias
+library(arules)
+library(arulesViz)
+
+```
+
+  Transações - No código abaixo em R realiza duas ações principais. Primeiro, ele lê um arquivo de transações chamado "transacoes.txt" no diretório "../dados" e o formata como um objeto de transações no formato de cestas, considerando a vírgula como separador. Em seguida, ele exibe uma imagem representando essas transações. Esse código é útil para visualizar visualmente padrões de compras ou associações entre itens em um conjunto de dados de transações.
+  
+```{r}
+
+# Leitura das transações
+transacoes <- read.transactions(
+  "../dados/transacoes.txt", 
+  format = "basket", 
+  sep = ","
+)
+
+# Visualização das transações
+image(transacoes)
+
+```
+
+  Gera as regras - No código abaixo em R realiza duas ações principais. Primeiro, ele lê um arquivo de transações chamado "transacoes.txt" no diretório "../dados" e o formata como um objeto de transações no formato de cestas, considerando a vírgula como separador. Em seguida, ele exibe uma imagem representando essas transações. Esse código é útil para visualizar visualmente padrões de compras ou associações entre itens em um conjunto de dados de transações.
+  
+```{r}
+
+# Geração das regras de associação
+regras <- eclat(transacoes, parameter = list(minlen = 2))
+
+# Visualização das regras de associação
+inspect(regras)
+
+```
+
+  Visualização - No código abaixo, está sendo utilizado o comando "plot" para criar um gráfico de rede ("method="graph"") com base em um conjunto de regras. O parâmetro "control" está configurado para controlar o tipo de representação, que neste caso é "items". Essa função é comumente usada em linguagens de programação como R para visualizar graficamente relações entre itens ou elementos de dados, ajudando na análise e interpretação de padrões e conexões.
+  
+```{r}
+
+# Visualização das regras de associação
+plot(regras, method = "graph", control = list(type = "items"))
+
+```
+

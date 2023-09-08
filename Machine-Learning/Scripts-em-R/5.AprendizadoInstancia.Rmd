@@ -1,0 +1,96 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Aprendizado baseado em instância
+---
+
+```{r}
+# Instalando e carregando a biblioteca "class" (se já não estiver instalada)
+if (!require(class)) {
+  install.packages("class")
+  library(class)
+}
+
+```
+
+Iris
+
+```{r}
+# Carregar a biblioteca 'datasets' se ainda não estiver carregada
+if (!require(datasets)) {
+  install.packages("datasets")
+  library(datasets)
+}
+
+# Visualizar as primeiras linhas do conjunto de dados iris
+head(iris)
+
+# Resumo estatístico do conjunto de dados iris
+summary(iris)
+
+```
+
+Dividimos em treino e classificação
+
+```{r}
+# Criar um vetor de amostras com reposição
+amostra <- sample(1:2, 150, replace = TRUE, prob = c(0.7, 0.3))
+
+# Separar o conjunto de dados iris em treinamento e teste com base na amostra
+iristreino <- iris[amostra == 1, ]
+iristeste <- iris[amostra == 2, ]
+```
+
+Visualizamos as dimensões
+
+```{r}
+# Verificar as dimensões dos conjuntos de treino e teste do conjunto de dados Iris
+dimensao_treino <- dim(iristreino)
+dimensao_teste <- dim(iristeste)
+
+# Imprimir as dimensões
+cat("Dimensões do conjunto de treino:", dimensao_treino[1], "linhas e", dimensao_treino[2], "colunas\n")
+cat("Dimensões do conjunto de teste:", dimensao_teste[1], "linhas e", dimensao_teste[2], "colunas\n")
+
+```
+
+Fazemos a classificação sem criar modelo
+Dados de treino (instâncias), dados de teste, classe real, número de vizinhos considerados
+
+```{r}
+# Claro, vou explicar o código em um único parágrafo com no máximo 80 palavras. O código em questão realiza uma tarefa de classificação usando o algoritmo K-Nearest Neighbors (KNN). Ele usa os conjuntos de dados "iristreino" e "iristeste", selecionando apenas as colunas de 1 a 4 dos conjuntos de treinamento e teste, e a coluna 5 do conjunto de treinamento. O parâmetro "k" é definido como 3, o que significa que o algoritmo considerará os três vizinhos mais próximos para fazer previsões. O resultado da classificação é armazenado na variável "previsao" e é retornado ou impresso posteriormente.
+
+# Carregue a biblioteca necessária
+library(class)
+
+# Defina o número de vizinhos (k)
+k <- 3
+
+# Realize a previsão com o algoritmo k-Nearest Neighbors (KNN)
+previsao <- knn(iristreino[, 1:4], iristeste[, 1:4], iristreino[, 5], k)
+
+# Exiba a previsão
+previsao
+
+```
+
+Matriz de confusão
+
+```{r}
+# Calcular a tabela de contingência entre duas variáveis
+tabela_contingencia <- table(iristeste[,5], previsao)
+
+# Exibir a tabela de contingência
+tabela_contingencia
+
+```
+
+Avaliamos a performance
+
+```{r}
+# Nesse código, calculamos o desempenho a partir de uma tabela, dividindo a soma das colunas 1, 5 e 9 pela soma de todos os valores na tabela. O resultado é armazenado na variável "desempenho" e, em seguida, é exibido. Esse cálculo fornece uma medida relativa do desempenho com base na contribuição das colunas específicas em relação ao total da tabela.
+
+desempenho <- (sum(tabela[c(1, 5, 9)]) / sum(tabela))
+desempenho
+```

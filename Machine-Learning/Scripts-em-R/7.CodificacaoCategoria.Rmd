@@ -1,0 +1,62 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+Codificação de Categorias
+---
+
+```{r}
+# Este código em R começa instalando os pacotes 'mltools' e 'data.table', mas essas linhas estão comentadas (precedidas por #), o que significa que a instalação não é executada quando o código é rodado. Em seguida, ele carrega esses pacotes usando 'library'. Esses pacotes são importantes para realizar análises de dados e manipulação eficiente de tabelas no R. Eles expandem as funcionalidades padrão do R para facilitar tarefas de aprendizado de máquina e gerenciamento de dados.
+
+# Instale os pacotes, se ainda não estiverem instalados
+#install.packages('mltools')
+#install.packages('data.table')
+
+# Carregue as bibliotecas necessárias
+library(mltools)
+library(data.table)
+
+```
+
+Convertemos os dados Titanic para data frame
+
+```{r}
+# O código em questão cria um DataFrame chamado 'dados_titanic' a partir dos dados do conjunto de dados Titanic, que contém informações sobre passageiros do navio. O DataFrame 'dados_titanic' é então exibido, mostrando os dados organizados em formato tabular, incluindo informações como classe, sexo, idade e número de passageiros sobreviventes em diferentes categorias. Esse código é usado para visualizar e trabalhar com os dados do Titanic em análises posteriores.
+
+# Carregar o conjunto de dados Titanic
+dados_titanic <- as.data.frame(Titanic)
+
+# Exibir os dados do Titanic
+head(dados_titanic)
+
+```
+
+Data matrix é função nativa do R
+Label encoder de Class, Sex e Age
+
+```{r}
+# No código apresentado, a variável "labenc" está sendo criada como uma matriz de dados a partir das três primeiras colunas do conjunto de dados "dados_titanic". Em seguida, o código simplesmente imprime o conteúdo da matriz "labenc". Isso significa que estamos selecionando e convertendo as três primeiras colunas do conjunto de dados em uma matriz e exibindo seu conteúdo.
+
+# Importando as três primeiras colunas do conjunto de dados 'dados_titanic' como uma matriz
+labenc <- as.matrix(dados_titanic[, 1:3])
+
+# Exibindo a matriz 'labenc'
+labenc
+
+```
+One hot encondig das mesmas colunas
+```{r}
+# Neste código, primeiro carregamos a biblioteca data.table para manipulação de dados. Em seguida, selecionamos as colunas 1 a 3 do conjunto de dados dados_titanic. Depois, aplicamos a codificação one-hot usando a função model.matrix() para criar a matriz one-hot. Por fim, exibimos o resultado na variável hotenco, o que é útil para análises posteriores, como em algoritmos de aprendizado de máquina que requerem entradas numéricas.
+
+# Carregue a biblioteca necessária
+library(data.table)
+
+# Selecione as colunas 1 a 3 do conjunto de dados dados_titanic
+dados_selecionados <- dados_titanic[, 1:3]
+
+# Aplique a codificação one-hot para as colunas selecionadas
+hotenco <- as.data.table(model.matrix(~ . - 1, data = dados_selecionados))
+
+# Exiba o resultado
+hotenco
+
+```

@@ -1,0 +1,80 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Contribuição: Adriano Santos
+
+
+  Apriori - No código abaixo, primeiro verificamos se os pacotes "arules" e "arulesViz" estão instalados. Se não estiverem, eles serão instalados automaticamente usando a função install.packages. Em seguida, carregamos as bibliotecas usando a função library. Dessa forma, garantimos que todas as dependências estejam satisfeitas antes de usarmos as funções dessas bibliotecas.
+---
+
+```{r}
+# Instale os pacotes se ainda não estiverem instalados
+if (!requireNamespace("arules", quietly = TRUE)) {
+  install.packages("arules")
+}
+
+if (!requireNamespace("arulesViz", quietly = TRUE)) {
+  install.packages("arulesViz")
+}
+
+# Carregue as bibliotecas necessárias
+library(arules)
+library(arulesViz)
+
+```
+
+Importa as transações - No código abaixo, a função read.transactions() do pacote arules é usada para ler um arquivo de texto contendo transações e armazená-las em um objeto de transações. O parâmetro format é definido como "basket", o que significa que o arquivo de texto contém transações no formato de cesta de mercado. O parâmetro sep é definido como ",", o que significa que os itens em cada transação são separados por vírgulas. As funções inspect() e image() são usadas para visualizar as transações armazenadas no objeto transacoes. A função inspect() mostra as transações em um formato legível, enquanto a função image() cria uma representação gráfica das transações.
+
+```{r}
+# Carregar a biblioteca necessária
+library(arules)
+
+# Ler as transações do arquivo transacoes.txt no formato de cestas (basket)
+transacoes <- read.transactions(
+  "../dados/transacoes.txt", 
+  format = "basket", 
+  sep = ","
+)
+
+# Exibir as transações
+transacoes
+
+# Inspecionar as transações para visualizar os dados
+inspect(transacoes)
+
+# Gerar uma imagem das transações (opcional)
+image(transacoes)
+
+```
+ 
+  Minerar - No código abaixo, a função apriori() do pacote arules é usada para gerar regras de associação a partir das transações armazenadas no objeto transacoes. Os parâmetros supp, conf e minlen são usados para especificar os critérios de suporte, confiança e comprimento mínimo das regras geradas. As funções summary() e inspect() são usadas para visualizar as regras de associação geradas. A função summary() fornece um resumo estatístico das regras, enquanto a função inspect() mostra as regras em um formato legível.
+ 
+```{r}
+
+# Geração das regras de associação
+regras <- apriori(transacoes, parameter = list(supp = 0.5, conf = 0.5, minlen = 2))
+
+# Visualização das regras de associação
+regras
+summary(regras)
+inspect(regras)
+
+```
+
+  Visualização - No código abaixo, as funções plot() são usadas para visualizar as regras de associação armazenadas no objeto regras. Essas funções são capazes de criar diferentes tipos de representações gráficas das regras de associação, como gráficos de rede, matrizes e matrizes 3D. Os parâmetros method e control são usados para especificar o tipo de gráfico a ser criado e personalizar sua aparência.
+  
+```{r}
+
+# Visualização das regras de associação
+plot(regras, method = "graph", control = list(type = "items"))
+plot(regras, method = "matrix", control = list(type = "items"))
+plot(regras, method = "matrix3D")
+
+```
+
+  Salvar as regras em disco - No código abaixo, a função write.csv() é usada para exportar as regras de associação armazenadas no objeto regras para um arquivo CSV. A função DATAFRAME() é usada para converter o objeto regras em um data frame antes de exportá-lo. O caminho do arquivo CSV é especificado como "../dados/regras.csv".
+  
+```{r}
+# Exportação das regras de associação para um arquivo CSV
+write.csv(DATAFRAME(regras), "../dados/regras.csv")
+
+```

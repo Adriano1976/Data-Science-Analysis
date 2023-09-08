@@ -1,0 +1,124 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Kmeans
+---
+
+```{r}
+# Este código em R começa por instalar o pacote "factoextra" usando o comando `install.packages("factoextra")`. Em seguida, ele carrega esse pacote recém-instalado com `library(factoextra)`. Essa sequência de comandos é usada para disponibilizar as funções e recursos do pacote "factoextra" no ambiente R, permitindo que o usuário realize análises e visualizações de dados relacionados à análise fatorial e métodos de agrupamento de dados.
+
+# Instalar e carregar a biblioteca "factoextra" se ainda não estiver instalada
+if (!requireNamespace("factoextra", quietly = TRUE)) {
+  install.packages("factoextra")
+}
+
+# Carregar a biblioteca "factoextra"
+library(factoextra)
+
+```
+
+Conjunto de dados iris
+
+```{r}
+# Este código em R realiza duas ações. Primeiro, ele carrega o conjunto de dados 'iris', que contém informações sobre diferentes espécies de flores. Em seguida, ele exibe as primeiras linhas desse conjunto de dados usando a função 'head'. Isso é útil para uma rápida visualização das primeiras observações do conjunto de dados e entender sua estrutura.
+
+# Carregar o conjunto de dados 'iris' que contém informações sobre espécies de flores
+dados_iris <- iris
+
+# Visualizar as primeiras linhas do conjunto de dados
+head(dados_iris)
+
+```
+Geramso o cluster
+
+```{r}
+# Carregar a biblioteca necessária
+library(stats)
+
+# Realizar a clusterização K-means
+clusters <- kmeans(iris[1:4], centers = 3)
+
+# Exibir os resultados da clusterização
+clusters
+
+# Tabela de contingência entre as espécies e os clusters
+tabela_contingencia <- table(iris$Species, clusters$cluster)
+
+# Exibir a tabela de contingência
+tabela_contingencia
+
+```
+
+Gráfico
+
+```{r}
+# Este código em R realiza dois gráficos de dispersão com dados do conjunto "iris". O primeiro gráfico exibe o comprimento das sépalas no eixo x e a largura das sépalas no eixo y, colorindo os pontos de acordo com os agrupamentos do objeto "cluster". O segundo gráfico mostra um gráfico de dispersão da matriz das quatro variáveis do conjunto "iris", também colorindo os pontos com base nos grupos do objeto "cluster". Ambos os gráficos têm um título indicando que estão relacionados ao conjunto "iris".
+
+# Carregar a biblioteca necessária
+library(cluster)
+
+# Gráfico de dispersão para Sepal.Length vs. Sepal.Width
+plot(
+  iris$Sepal.Length, 
+  iris$Sepal.Width, 
+  col = cluster$cluster, 
+  pch = 20, 
+  main = "Gráfico Sepal.Length vs. Sepal.Width", 
+  xlab = "Comprimento das Sépalas", 
+  ylab = "Largura das Sépalas"
+)
+
+# Gráfico de dispersão para todas as colunas de iris
+plot(
+  iris[, 1:4], 
+  col = cluster$cluster, 
+  main = "Gráfico de todas as características da Iris"
+)
+
+```
+
+Gráfico especializado
+
+```{r}
+# No código apresentado, estamos realizando a visualização de clusters em um conjunto de dados do iris. Primeiro, atribuímos um nome ao cluster e extraímos as características do conjunto de dados iris. Em seguida, criamos um gráfico de dispersão dos clusters utilizando a função 'fviz_cluster', especificando o tipo de elipse como "convex" e personalizando o tema do gráfico. O título do gráfico é composto pelo nome do cluster e o número do cluster a que cada ponto pertence. Por fim, exibimos o gráfico de dispersão que mostra a distribuição dos pontos nos clusters.
+
+# Nome do cluster
+nome_cluster <- "Cluster "
+
+# Extrair as características do conjunto de dados iris
+dados <- iris[1:4]
+
+# Criar o gráfico de dispersão dos clusters
+grafico_clusters <- fviz_cluster(
+  cluster, 
+  data = dados, 
+  ellipse.type = "convex", 
+  ggtheme = theme_bw(),
+  main = paste(nome_cluster, cluster$cluster)
+)
+
+# Exibir o gráfico
+plot(grafico_clusters)
+
+```
+
+Adiciomamos o cluster aos dados originais
+
+```{r}
+# Neste código em R, uma cópia do conjunto de dados "iris" é criada e armazenada na variável "iris2". Em seguida, uma nova coluna chamada "grupos" é adicionada a "iris2", que recebe os valores de agrupamento calculados previamente em algum objeto chamado "cluster". Por fim, o conjunto de dados "iris2" com a nova coluna é exibido na saída. O comando para escrever este conjunto de dados em um arquivo CSV está comentado (#), o que significa que está desativado, mas pode ser ativado removendo o "#" para exportar o conjunto de dados "iris2" para um arquivo CSV chamado "iri2.csv".
+
+# Criar uma cópia do dataframe 'iris'
+iris2 <- iris
+
+# Adicionar a coluna 'grupos' ao dataframe 'iris2'
+iris2['grupos'] <- cluster$cluster
+
+# Exibir o dataframe 'iris2'
+iris2
+
+# Salvar o dataframe 'iris2' em um arquivo CSV
+# write.csv(iris2, "iri2.csv")
+
+```
+

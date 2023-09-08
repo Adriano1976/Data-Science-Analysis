@@ -1,0 +1,68 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Contribuição: Adriano Santos
+
+Kmedoids
+---
+
+```{r}
+# Esse código em R começa instalando os pacotes "cluster" e "factoextra" (caso ainda não estejam instalados) usando o comando "#install.packages". Em seguida, ele carrega esses pacotes utilizando "library(cluster)" e "library(factoextra)". Essas ações são necessárias para utilizar as funcionalidades desses pacotes no ambiente R. Eles são frequentemente usados para análise de agrupamentos e visualização de resultados de análises fatoriais, respectivamente, ampliando as capacidades do R para essas tarefas específicas.
+
+
+# Instalação dos pacotes necessários
+# install.packages("cluster")
+# install.packages("factoextra")
+
+# Carregamento dos pacotes
+library(cluster)
+library(factoextra)
+
+```
+
+Gera o cluster - O código abaixo realiza uma análise de agrupamento (cluster) usando o método PAM (Partitional Around Medoids) nos quatro primeiros atributos do conjunto de dados iris, com o objetivo de criar três grupos (k=3). Esse método calcula os centróides dos grupos baseados em medoides, uma versão mais robusta do centróide, e classifica os dados em três clusters distintos com base na proximidade aos medoides.
+
+```{r}
+
+# Execução da análise de cluster
+cluster <- pam(iris[, 1:4], k = 3)
+
+```
+
+Visualiza - No código abaixo, estamos realizando uma análise de agrupamento (clustering) de dados usando a função "cluster" e, em seguida, visualizando os resultados com "plot(cluster)". Por fim, estamos contabilizando quantos pontos de dados pertencem a cada grupo (cluster) em relação às espécies de flores (iris$Species) usando a função "table". Esse código é útil para entender como os dados estão naturalmente agrupados com base nas espécies de flores do conjunto de dados Iris, fornecendo insights sobre a distribuição dos grupos.
+
+```{r}
+
+# Carregamento dos pacotes necessários
+library(cluster)
+library(graphics)
+
+# Visualização dos resultados da análise de cluster
+plot(cluster)
+table(iris$Species, cluster$clustering)
+
+```
+
+Vizualização com factoextra - O código abaixo utiliza a função 'fviz_cluster' da biblioteca 'factoextra' para visualizar clusters em dados do conjunto de dados 'iris'. Ele cria um gráfico de dispersão com elipses que representam os clusters identificados previamente. O argumento 'ellipse.type' define o tipo de elipse a ser desenhado (normal neste caso), e 'ggtheme' define o tema do gráfico. A função 'plot(g)' exibe o gráfico criado. Em resumo, este código é usado para visualizar a distribuição de clusters nos dados da íris de forma gráfica e informativa.
+
+
+```{r}
+# Carregamento dos pacotes necessários
+library(factoextra)
+library(ggplot2)
+
+# Criação do gráfico de cluster
+g <- fviz_cluster(
+  list(data = iris[, 1:4], cluster = cluster$cluster),
+  ellipse.type = "norm",
+  ggtheme = theme_bw(),
+  main = "Cluster"
+)
+
+# Visualização do gráfico
+plot(g)
+
+```
+
+  A imagem acima é um gráfico de dispersão de pontos de dados em três clusters. Os clusters são codificados por cores em vermelho, verde e azul. O gráfico é intitulado "Cluster" e possui duas dimensões, Dim1 e Dim2. Os pontos de dados são rotulados com números. O gráfico parece ser uma visualização de algum tipo de análise de dados.
+
+  Este gráfico parece mostrar a análise de cluster de algum conjunto de dados. A análise de cluster é uma técnica utilizada para agrupar objetos semelhantes em grupos, ou clusters. Neste caso, parece que os dados foram divididos em três clusters distintos. No entanto, sem mais informações sobre o contexto dos dados, é difícil tirar conclusões mais específicas.

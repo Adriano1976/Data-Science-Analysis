@@ -1,0 +1,109 @@
+---
+Formação Cientista de Dados - Seleção de Atributos
+Colaboração: Adriano Santos
+---
+
+```{r}
+# Instale os pacotes se necessário (descomente se precisar)
+#install.packages("e1071")
+#install.packages("randomForest")
+
+# Carregue as bibliotecas necessárias
+library(e1071)
+library(randomForest)
+
+# Leia o conjunto de dados de crédito
+credito <- read.csv("../dados/Credit.csv")
+
+# Converta a coluna 'class' em fator (variável categórica)
+credito$class <- as.factor(credito$class)
+
+```
+
+Dividios os dados em treino e teste
+Definimos semente para ser possível repetir o experimento
+
+```{r}
+# Definir uma semente para reprodução dos resultados
+set.seed(234)
+
+# Gerar uma amostra aleatória com reposição (1 ou 2) com base nas probabilidades fornecidas
+amostra <- sample(2, 1000, replace = TRUE, prob = c(0.7, 0.3))
+
+# Separar o conjunto de dados de crédito em conjuntos de treinamento e teste com base na amostra
+creditotreino <- credito[amostra == 1, ]
+creditoteste <- credito[amostra == 2, ]
+```
+
+Criamos um primeiro modelo com todos os atributos
+Avaliamos a acurácia
+
+```{r}
+# Carregue a biblioteca necessária para o SVM, se ainda não estiver carregada
+if (!require(e1071)) {
+  install.packages("e1071")
+}
+library(e1071)
+
+# Crie o modelo SVM
+modelo <- svm(class ~ ., data = creditotreino)
+
+# Faça previsões com o modelo
+predicao <- predict(modelo, newdata = creditoteste)
+
+# Crie uma matriz de confusão
+confusao <- table(creditoteste$class, predicao)
+
+# Calcule a taxa de acerto
+taxaacerto <- sum(diag(confusao)) / sum(confusao)
+
+# Exiba a taxa de acerto
+taxaacerto
+
+```
+
+Aplicamos um método de seleção de atributos
+
+```{r}
+# O código apresentado utiliza a biblioteca "randomForest" em R para treinar um modelo de floresta aleatória (random forest). Ele usa o conjunto de dados "creditotreino" para prever a variável "class" com base em todas as outras variáveis disponíveis. Em seguida, o código calcula a importância das variáveis no modelo e exibe essas importâncias. Por fim, cria um gráfico que visualiza a importância das variáveis no modelo de floresta aleatória. Esse código é útil para identificar quais variáveis têm mais influência nas previsões do modelo.
+
+# Importar a biblioteca randomForest
+library(randomForest)
+
+# Treinar o modelo de random forest
+modelo_rf <- randomForest(class ~ ., data = creditotreino)
+
+# Obter a importância das variáveis
+importancia_variaveis <- importance(modelo_rf)
+
+# Exibir as importâncias das variáveis
+print(importancia_variaveis)
+
+# Plotar um gráfico de importância das variáveis
+varImpPlot(modelo_rf)
+
+```
+
+Criamos um segundo modelo com as variáveis independentes mais importantes
+
+```{r}
+# Carregue a biblioteca necessária
+library(e1071)
+
+# Crie o modelo SVM
+modelo <- svm(class ~ credit_amount + age + duration + checking_status, data = creditotreino)
+
+# Faça a previsão com o modelo
+predicao <- predict(modelo, newdata = creditoteste)
+
+# Crie a matriz de confusão
+confusao <- table(creditoteste$class, predicao)
+
+# Calcule a taxa de acerto
+taxaacerto <- (confusao[1, 1] + confusao[2, 2]) / sum(confusao)
+
+# Exiba a taxa de acerto
+taxaacerto
+
+```
+

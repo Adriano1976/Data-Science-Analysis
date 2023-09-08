@@ -1,0 +1,88 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Fuzzi C-means
+---
+
+```{r}
+# Esse código em R realiza três ações principais: primeiro, ele instala os pacotes "factoextra", "e1071" e "RColorBrewer" (caso ainda não estejam instalados). Em seguida, ele carrega esses pacotes com a função "library". Esses pacotes são úteis para realizar análises e visualizações de dados, especialmente em tarefas de análise de dados e mineração de dados. O pacote "factoextra" é comumente usado para visualização de resultados de análises de fatores e clusters, "e1071" oferece funções para suporte a máquinas de vetores de suporte (SVM), enquanto "RColorBrewer" ajuda na escolha de paletas de cores para gráficos. Essas etapas são essenciais para utilizar as funções desses pacotes em seu código R.
+
+
+# Carregar as bibliotecas necessárias
+# As linhas para instalar os pacotes foram mantidas como comentários,
+# pois geralmente só precisam ser executadas uma vez
+
+# install.packages("factoextra")
+# install.packages("e1071")
+# install.packages("RColorBrewer")
+
+library(factoextra)  # Biblioteca para visualização de resultados de análise de cluster
+library(e1071)       # Biblioteca para funções de aprendizado de máquina
+library(RColorBrewer)  # Biblioteca para paletas de cores
+
+```
+
+Gera o cluster fuzzy
+
+```{r}
+# Nesse código, é realizado o algoritmo cmeans nas quatro primeiras colunas do dataframe 'iris', buscando agrupar os dados em três clusters. Em seguida, são exibidos os valores de pertinência de cada amostra a esses clusters por meio da expressão 'cluster$membership'. Esse processo é útil para a análise de agrupamentos em conjuntos de dados, como o conjunto de dados 'iris', que contém informações sobre diferentes espécies de flores com base em características específicas.
+
+
+# Executar o algoritmo cmeans nas colunas 1 a 4 do dataframe 'iris'
+cluster <- cmeans(iris[,1:4], centers = 3)
+
+# Exibir os valores de pertinência do cluster
+cluster$membership
+
+```
+
+Visualizar membeship com heatmap
+
+```{r}
+# Nesse código, é gerado um heatmap (mapa de calor) a partir dos dados contidos na variável 'cluster$membership'. Os parâmetros 'Colv' e 'Rowv' são configurados como NA, indicando que não será aplicada a hierarquização de colunas e linhas. A paleta de cores 'YlOrRd' da biblioteca 'brewer.pal' com 9 cores é utilizada para representar os valores no mapa de calor. Em resumo, esse código cria uma visualização gráfica dos dados de cluster com uma escala de cores de amarelo a vermelho.
+
+
+# Carregar a paleta de cores YlOrRd
+paleta_cores <- brewer.pal(n = 9, name = "YlOrRd")
+
+# Criar um mapa de calor sem agrupamento hierárquico
+heatmap(cluster$membership, Colv = NA, Rowv = NA, col = paleta_cores)
+
+```
+
+Matriz de Confusão
+
+```{r}
+# Esse código em R utiliza a função `table` para criar uma tabela de contingência que mostra a frequência de ocorrência das espécies de flores do dataset Iris (iris$Species) em relação aos clusters gerados previamente (cluster$cluster). Basicamente, ele está contando quantas vezes cada espécie de flor aparece em cada cluster, fornecendo uma visão da distribuição das espécies nos grupos criados. É uma ferramenta útil para análises estatísticas e de agrupamento de dados.
+
+
+# Criar uma tabela de contingência entre as espécies de íris e os agrupamentos do objeto 'cluster'
+table(iris$Species, cluster$cluster)
+
+```
+
+Visualização com factoextra
+
+```{r}
+# No código fornecido, é realizada uma visualização de clusters utilizando a função `fviz_cluster` do pacote `factoextra` em R. Os dados de entrada são as quatro primeiras colunas do conjunto de dados Iris, e a atribuição de clusters é obtida a partir do objeto `cluster`. A função cria um gráfico de dispersão com elipses que representam a dispersão dos pontos em cada cluster, com uma aparência estilizada definida pelo tema `theme_bw()`. O título do gráfico é definido como "Cluster". Em seguida, o gráfico é plotado usando `plot(g)`. Esse código ajuda a visualizar como os dados estão agrupados em clusters com base nas quatro variáveis do conjunto de dados Iris.
+
+
+# Criar um gráfico de cluster usando a função 'fviz_cluster'
+g <- fviz_cluster(
+  list(data = iris[,1:4], cluster = cluster$cluster), 
+  ellipse.type = "norm", 
+  ggtheme = theme_bw(), 
+  main = "Cluster"
+)
+
+# Exibir o gráfico de cluster
+plot(g)
+
+```
+
+  A imagem acima é um gráfico de dispersão com três clusters de pontos de dados. Os clusters são codificados por cores em verde, azul e vermelho. Os eixos x e y são rotulados como "Dim1" e "Dim2", respectivamente. O título do gráfico é "Cluster". O gráfico parece ser uma visualização de alguma análise de dados.
+
+  Este gráfico pode ser usado para representar a relação entre duas variáveis, onde cada ponto representa um conjunto de valores para essas duas variáveis. Os clusters podem indicar grupos de dados que compartilham características semelhantes. É interessante notar que os clusters parecem estar bem separados, o que pode indicar uma boa distinção entre os grupos. 
+  
+  
