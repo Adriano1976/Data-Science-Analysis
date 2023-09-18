@@ -1,0 +1,150 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Contribuição: Adriano Santos
+
+RNA
+---
+
+Este código em R começa instalando pacotes necessários, como 'neuralnet', 'mltools', 'data.table' e 'caret', se ainda não estiverem instalados. Em seguida, ele carrega esses pacotes usando 'library()'. Esses pacotes são comumente usados para tarefas de análise de dados e aprendizado de máquina, incluindo o treinamento de redes neurais com 'neuralnet'. O uso de 'caret' sugere que o código pode envolver tarefas de modelagem preditiva ou classificação, aproveitando essas bibliotecas para facilitar o processo.
+```{r}
+
+# install.packages("neuralnet")
+# install.packages('mltools')
+# install.packages('data.table')
+# install.packages("caret", dependencies = TRUE)
+
+library(neuralnet)
+library(mltools)
+library(data.table)
+library(caret)
+
+```
+
+Dimensionamento de Características - Padronização
+
+No código abaixo fornecido, primeiro é realizado o dimensionamento dos atributos numéricos do conjunto de dados "iris" usando a função "scale", o que padroniza esses atributos. Em seguida, os resultados são convertidos de volta em um dataframe com a função "as.data.frame". Por fim, a classe "Species" é adicionada ao novo dataframe "iris2" a partir do dataframe original "iris". O resultado é um novo conjunto de dados "iris2" com os atributos dimensionados e a classe preservada.
+
+```{r}
+
+# Escala as colunas 1 a 4 do conjunto de dados iris
+iris2 <- scale(iris[, 1:4])
+
+# Converte a matriz resultante em um data frame
+iris2 <- as.data.frame(iris2)
+
+# Adiciona a classe 'Species' ao data frame
+iris2$Species <- iris$Species
+
+# Retorna o data frame iris2 com as colunas escaladas e a classe adicionada
+iris2
+
+```
+
+Dividimos em treino e teste, usando método do pacote caret
+
+Neste código em linguagem R, estamos dividindo um conjunto de dados chamado "iris2" em duas partes, uma para treinamento e outra para teste, com o objetivo de avaliar um modelo. Primeiro, definimos uma semente aleatória para garantir que os resultados sejam reproduzíveis. Em seguida, usamos a função "createDataPartition" para criar uma partição de 70% dos dados para treinamento, armazenando-a em "iristreino", enquanto os 30% restantes são armazenados em "iristeste". As dimensões (número de linhas e colunas) dos conjuntos de treinamento e teste são exibidas. Isso é útil em análises de dados para preparar os dados para modelagem e testar a eficácia de um modelo posteriormente.
+
+```{r}
+# Define a semente para a reprodutibilidade
+set.seed(1234)
+
+# Cria uma partição dos dados
+particao <- createDataPartition(1:dim(iris2)[1], p = 0.7)
+
+# Divide o conjunto de dados em treinamento e teste com base na partição
+iristreino <- iris2[particao$Resample1, ]
+iristeste <- iris2[-particao$Resample1, ]
+
+# Verifica as dimensões dos conjuntos de treinamento e teste
+dim(iristreino)
+dim(iristeste)
+
+```
+
+One hot encoding para a classe
+
+Neste código simples, estamos trabalhando com dados do conjunto de dados Iris. Primeiro, estamos adicionando uma coluna extra ao conjunto de treinamento, que representa a espécie das flores usando codificação one-hot, tornando-a mais adequada para análises. Em seguida, exibimos o conjunto de treinamento resultante, que agora inclui essa nova coluna codificada para facilitar o treinamento de modelos de aprendizado de máquina.
+
+```{r}
+# Juntamos os atributos com a classe para não perde-los
+iristreino <- cbind(iristreino[, 1:4], one_hot(as.data.table(iristreino[, 5])))
+iristreino
+
+```
+
+Modelo
+
+Este código em R utiliza a função "neuralnet" para criar um modelo de rede neural para classificar três espécies de flores (setosa, versicolor e virginica) com base em quatro atributos (comprimento e largura da sépala, comprimento e largura da pétala). O modelo tem duas camadas ocultas com 5 e 4 neurônios, respectivamente. Em seguida, ele imprime as informações do modelo e gera um gráfico da rede neural.
+
+```{r}
+# Carregue a biblioteca neuralnet se ainda não estiver carregada
+# install.packages("neuralnet")
+library(neuralnet)
+
+# Crie o modelo da rede neural
+modelo <- neuralnet(V1_setosa + V1_versicolor + V1_virginica ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, 
+                    iristreino, hidden = c(5, 4))
+
+# Imprima o modelo
+print(modelo)
+
+# Plote o modelo
+plot(modelo)
+
+
+```
+
+Previsão
+
+Este código em R realiza a inferência de um modelo chamado 'modelo' nos dados de teste 'iristeste', que incluem as colunas de 1 a 4. O resultado da inferência é armazenado em 'teste', e a saída da rede neural é acessada com 'teste$net.result'. Em seguida, converte-se esse resultado em um dataframe chamado 'resultado', que contém as previsões do modelo para os dados de teste.
+
+```{r}
+teste = compute(modelo,iristeste[,1:4])
+teste$net.result
+resultado = as.data.frame(teste$net.result)
+resultado
+```
+
+Atribumos nomes as coluns conforme a classe
+
+No código apresentado, estamos renomeando as colunas de um objeto chamado "resultado" em R. As três linhas iniciais utilizam a função "names()" para atribuir novos nomes às colunas do objeto. O primeiro nome é definido como 'setosa', o segundo como 'versicolor' e o terceiro como 'virginica'. Isso é útil para dar nomes mais descritivos às colunas em análises de dados. Por fim, a última linha exibe o objeto "resultado" com as colunas renomeadas.
+
+```{r}
+names(resultado)[1] <- 'setosa'
+names(resultado)[2] <- 'versicolor'
+names(resultado)[3] <- 'virginica'
+resultado
+```
+
+Usamos o nome das colunas para prencher uma coluna com a classe
+
+No código apresentado, estamos renomeando as colunas de um objeto chamado "resultado" em R. As três linhas iniciais utilizam a função "names()" para atribuir novos nomes às colunas do objeto. O primeiro nome é definido como 'setosa', o segundo como 'versicolor' e o terceiro como 'virginica'. Isso é útil para dar nomes mais descritivos às colunas em análises de dados. Por fim, a última linha exibe o objeto "resultado" com as colunas renomeadas.
+
+```{r}
+# Atribuindo as colunas desejadas a uma variável
+colunas_desejadas <- resultado[, 1:3]
+
+# Obtendo o nome da coluna com o valor máximo em cada linha
+resultado$class <- colnames(colunas_desejadas)[max.col(colunas_desejadas, ties.method = 'first')]
+
+# Exibindo o resultado
+resultado
+
+```
+
+Avaliamos a performance
+
+Neste código, está sendo realizado um cálculo de precisão para um modelo de classificação. Primeiro, a função 'table' é usada para criar uma matriz de confusão comparando as classes reais (contidas em 'resultado$class') com as classes previstas (em 'iristeste$Species'). A matriz de confusão é então exibida. Em seguida, é calculada a precisão dividindo a soma dos elementos diagonais da matriz de confusão pelo total de elementos da matriz e multiplicando por 100. Isso fornece a porcentagem de acertos do modelo na classificação das classes, uma medida importante para avaliar seu desempenho.
+
+```{r}
+# Criando a matriz de confusão
+confusao <- table(resultado$class, iristeste$Species)
+
+# Exibindo a matriz de confusão
+confusao
+
+# Calculando a acurácia
+acuracia <- sum(diag(confusao) * 100 / sum(confusao))
+acuracia
+
+```
