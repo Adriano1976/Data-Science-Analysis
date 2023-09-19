@@ -1,0 +1,69 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Estudo de Caso, Machine Learning e Deep Learning
+
+O estudo de caso é uma estratégia de pesquisa científica que analisa um fenômeno atual em seu contexto real e as variáveis que o influenciam. Trata-se de um estudo intensivo e sistemático sobre uma instituição, comunidade ou indivíduo que permite examinar fenômenos complexos. No caso do texto fornecido, o estudo de caso é sobre o diagnóstico de doenças em soja. O objetivo é criar um modelo de aprendizado de máquina (ML) para diagnosticar doenças em plantas de soja. O conjunto de dados fornecido contém 19 classes, 35 atributos e 683 instâncias. O modelo de ML pode ser desenvolvido usando diferentes técnicas, como redes neurais artificiais (RNA) ou aprendizado profundo (DL). O objetivo final é buscar a melhor performance do modelo para diagnosticar doenças em plantas de soja com precisão e eficiência.
+
+---
+
+O código R apresentado começa por instalar o pacote 'randomForest' usando o comando 'install.packages', que é comentado (indicado pelo símbolo '#'). Em seguida, ele carrega esse pacote recém-instalado utilizando a função 'library(randomForest)'. Esse código é utilizado para garantir que o pacote 'randomForest' esteja disponível para uso no ambiente de programação R, permitindo a aplicação de algoritmos de floresta aleatória em análises subsequentes.
+
+```{r}
+# install.packages('randomForest',dependencies=T)
+library(randomForest)
+```
+
+Neste código em R abaixo, começamos lendo um arquivo CSV chamado "soybean.csv" localizado no diretório "../dados/". O argumento "stringsAsFactors" está definido como verdadeiro (T), o que significa que as strings serão convertidas em fatores. Em seguida, imprimimos os dados do dataframe "soja" para visualizá-los. Após isso, usamos "dim(soja)" para obter as dimensões do dataframe, ou seja, o número de linhas e colunas. Por fim, exibimos os valores únicos da coluna "class" do dataframe "soja". Esse código é útil para carregar dados, inspecioná-los e verificar as classes únicas em uma coluna específica.
+
+```{r}
+# Carrega os dados de exemplo
+soja = read.csv('../dados/soybean.csv', stringsAsFactors = T)
+soja
+dim(soja)
+# Classes
+unique(soja$class)
+```
+
+Esse código R abaixo cria uma amostra aleatória de índices de tamanho 683, permitindo substituição. A probabilidade de selecionar o índice 1 é 70%, enquanto o índice 2 tem uma probabilidade de 30%. Com base nessa amostra, ele divide um conjunto de dados chamado 'soja' em dois subconjuntos: 'sojatreino', contendo os dados com índices iguais a 1 na amostra, e 'sojateste', contendo os dados com índices iguais a 2 na amostra. Isso é útil para dividir os dados em conjuntos de treinamento e teste para análise ou modelagem estatística.
+
+```{r}
+amostra <- sample(1:2, 683, replace = TRUE, prob = c(0.7, 0.3))
+sojatreino <- soja[amostra == 1, ]
+sojateste <- soja[amostra == 2, ]
+```
+
+Esse código R abaixo, verifica se o pacote "randomForest" está instalado e, caso contrário, o instala. Em seguida, ele carrega o pacote, permitindo o uso da função "randomForest". A função é usada para criar um modelo de floresta aleatória para classificação, onde "class" representa a variável alvo e "sojatreino" é o conjunto de dados. O modelo é configurado para usar 100 árvores e calcular a proximidade entre os registros. O resultado do modelo é armazenado na variável "result".
+
+```{r}
+
+if (!require(randomForest)) {
+  install.packages("randomForest")
+}
+
+
+library(randomForest)
+
+floresta <- randomForest(class ~ ., data = sojatreino, ntree = 100, proximity = TRUE)
+floresta
+```
+
+Neste código em R abaixo, estamos testando um modelo de machine learning chamado "floresta" usando dados de teste representados por "sojateste". A função "predict" é usada para fazer previsões com base no modelo treinado, e o resultado é armazenado na variável "previsao". Em seguida, o código exibe as previsões obtidas. Isso é útil para avaliar o desempenho do modelo ao comparar suas previsões com os valores reais dos dados de teste.
+
+```{r}
+
+previsao = predict(floresta, sojateste)
+previsao
+```
+
+
+Este código R abaixo, calcula a taxa média de erro de classificação (class.error) em um objeto chamado "floresta" que provavelmente representa resultados de um modelo de floresta aleatória. Ele faz isso usando a função "mean" para calcular a média dos valores na coluna "class.error" da matriz "confusion" dentro do objeto "floresta". O resultado será a média das taxas de erro de classificação para as classes no modelo de floresta aleatória.
+
+```{r}
+
+floresta$confusion
+1- mean(floresta$confusion[,'class.error'])
+
+```
+

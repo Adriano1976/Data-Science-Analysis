@@ -1,0 +1,116 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Deep Learning
+---
+
+Este código em R começa por comentar a instalação do pacote "h2o," sugerindo que ele pode não estar previamente instalado. Em seguida, ele carrega a biblioteca "h2o," tornando as funções e recursos dessa biblioteca disponíveis para uso no ambiente R. Essa biblioteca é frequentemente utilizada para tarefas de aprendizado de máquina e análise de dados avançada. É importante garantir que o pacote "h2o" esteja instalado antes de carregá-lo para utilizá-lo eficazmente.
+
+```{r}
+#install.packages("h2o")
+library(h2o)
+```
+
+Importamos o arquivo para visualização
+
+No código R fornecido, inicialmente, a função "options(warn=-1)" é usada para suprimir os avisos durante a execução do código. Em seguida, o conjunto de dados "digitos" é criado ao ler um arquivo CSV compactado localizado em "../dados/test.csv.gz", com a opção "header=F" indicando que o arquivo não possui cabeçalho. A função "dim(digitos)" retorna as dimensões do conjunto de dados, ou seja, o número de linhas e colunas, enquanto "head(digitos)" exibe as primeiras linhas do conjunto para visualização inicial.
+
+```{r}
+options(warn=-1)
+digitos <- read.csv(gzfile("../dados/test.csv.gz"), header=F)
+dim(digitos)
+head(digitos)
+```
+
+Visualizamos alguns digitos
+
+Esse código R está processando matrizes de dígitos em um formato específico. Inicialmente, ele extrai os dígitos da matriz 'digitos' excluindo a coluna 785 e, em seguida, organiza esses dígitos em uma matriz de 28 linhas por coluna, garantindo que a disposição seja por coluna ('byrow = F'). Em seguida, ele inverte a ordem das colunas da matriz usando 'apply', resultando em matrizes 'dig1', 'dig2', 'dig3' e 'dig4', que representam diferentes dígitos processados. Finalmente, o código imprime a matriz 'dig1' e o valor do elemento na 20ª linha e 785ª coluna da matriz 'digitos'.
+
+```{r}
+dig1 = t(matrix(unlist(digitos[20,-785]), nrow = 28, byrow = F))
+dig1 = t(apply(dig1, 2, rev))
+dig1
+digitos[20,785]
+
+dig2 = t(matrix(unlist(digitos[2,-785]), nrow = 28, byrow = F))
+dig2 = t(apply(dig2, 2, rev))
+
+dig3 = t(matrix(unlist(digitos[4,-785]), nrow = 28, byrow = F))
+dig3 = t(apply(dig3, 2, rev))
+
+dig4 = t(matrix(unlist(digitos[5,-785]), nrow = 28, byrow = F))
+dig4 = t(apply(dig4, 2, rev))
+```
+
+Visualizamos as imagens
+
+No código R fornecido, quatro imagens são geradas usando a função 'image'. Cada imagem é representada por uma matriz (dig1, dig2, dig3 e dig4) e é exibida com uma paleta de cores em tons de cinza (col = grey.colors(255)). Essas imagens provavelmente contêm informações visuais ou gráficos que podem ser úteis para análise ou visualização de dados, mas sem informações adicionais sobre o conteúdo das matrizes 'dig1', 'dig2', 'dig3' e 'dig4', não é possível fornecer uma interpretação mais específica.
+
+```{r}
+#Executar com ctrl + shift + enter
+image(dig1, col = grey.colors(255))
+image(dig2,col=grey.colors(255))
+image(dig3,col=grey.colors(255))
+image(dig4,col=grey.colors(255))
+```
+
+Inicialização 
+
+Neste código R, estamos inicializando a biblioteca H2O e carregando conjuntos de dados de treinamento e teste a partir de arquivos CSV compactados hospedados em URLs. Em seguida, verificamos as dimensões do conjunto de treinamento, exibimos as primeiras linhas do conjunto de treinamento e listamos os nomes das colunas. Além disso, estamos convertendo a última coluna de ambos os conjuntos de dados em um fator, o que é comum em tarefas de classificação, onde a última coluna geralmente representa as classes alvo.
+
+```{r}
+h2o.init()
+treino <- h2o.importFile('https://github.com/Adriano1976/Data-Science-Analysis/blob/main/Neural-Networks-e-Deep-Learning/dados/train.csv.gz')
+teste <- h2o.importFile('https://github.com/Adriano1976/Data-Science-Analysis/blob/main/Neural-Networks-e-Deep-Learning/dados/test.csv.gz')
+dim(treino)
+head(treino)
+colnames(treino)
+#transforma a classe em fator
+treino[,785] <- as.factor(treino[,785])
+teste[,785] <- as.factor(teste[,785])
+
+```
+Modelo
+```{r}
+# Instale o pacote h2o
+install.packages("h2o")
+
+# Carregue o pacote h2o
+library(h2o)
+
+# Inicialize o cluster H2O
+h2o.init()
+
+# Defina as variáveis de entrada e saída
+variaveis_entrada <- colnames(treino[,1:785])
+variavel_saida <- "C785"
+
+# Treine o modelo
+modelo <- h2o.deeplearning(
+  x = variaveis_entrada,  
+  y = variavel_saida,  
+  training_frame = treino,  
+  validation_frame = teste,  
+  distribution = "AUTO",  
+  activation = "RectifierWithDropout",  
+  hidden = c(64,64,64),  
+  sparse = TRUE, 
+  epochs = 20
+)
+
+# Plote o modelo
+plot(modelo)
+
+
+```
+Performance do modelo
+```{r}
+h2o.performance(modelo)
+```
+Fazemos um teste, prevendo um novo valor
+
+```{r}
+treino[20,785]
+pred <- h2o.predict(modelo, newdata = treino[20,1:784])
+pred$predict
+```
+
