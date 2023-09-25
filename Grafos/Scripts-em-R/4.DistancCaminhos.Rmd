@@ -1,0 +1,72 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Contribuição: Adriano Santos
+
+Distâncias e Caminhos mais curtos
+---
+
+Esse código em R começa por comentar a instalação do pacote "igraph," que é uma biblioteca usada para análise de redes. Em seguida, ele carrega essa biblioteca no ambiente de trabalho, tornando suas funções disponíveis para uso no código subsequente. É importante mencionar que a instalação do pacote só precisa ser realizada uma vez, enquanto o carregamento (library) deve ser feito sempre que você iniciar uma sessão de R para usar o pacote "igraph" em seus scripts.
+
+```{r}
+#install.packages("igraph")
+library(igraph)
+```
+
+Cria Grafo
+
+O código cria um grafo direcionado com arestas entre os nós A, B, C, D, E, F, G e H, representando conexões entre eles. Em seguida, utiliza a função "plot" para visualizar o grafo resultante. Esse código é útil para representar e analisar redes de relacionamentos ou fluxos de informações.
+
+```{r}
+dist = graph(edges=c("A","C","A","B","B","E","B","F","C","D","G","H","D","H","E","H","F","G"),directed=TRUE)
+plot(dist)
+```
+
+Define pesos
+
+O código acima cria um gráfico de rede em R usando a biblioteca "igraph". Ele define os pesos das arestas representando distâncias entre vértices em um grafo, com pesos específicos definidos no vetor c(2,1,2,1,2,1,1,3,1). Em seguida, ele gera um gráfico de rede com esses pesos usando a função "plot" e uma versão interativa do gráfico usando "tkplot", onde os pesos são exibidos nas arestas, e os vértices são representados em branco.
+
+```{r}
+# Pesos nas arestas que vão representar distâncias
+E(dist)$weight = c(2,1,2,1,2,1,1,3,1)
+plot(dist, edge.label = E(dist)$weight)
+tkplot(dist, edge.label = E(dist)$weight, vertex.color="white")
+```
+
+Busca a distância
+
+O código acima realiza as seguintes operações: primeiro, calcula a distância mais curta entre dois vértices, especificamente entre "A" e "H" no grafo. Em seguida, ele verifica esse cálculo no grafo, plotando-o com rótulos nas arestas representando as distâncias. Depois, busca o caminho mais curto entre os mesmos vértices e armazena-o na variável 'caminho', que pode conter uma lista de vértices ou arestas, dependendo da configuração. Por fim, plota novamente o grafo com as distâncias representadas. Esse código é usado para análise de grafos e cálculos de caminhos mais curtos em um contexto de análise de redes.
+
+```{r}
+# Calcula a distância mais curta entre dois vertices (calcula mas não mostra caminho)
+distances(dist,V(dist)$name=="A",V(dist)$name=="H")
+# verifica no grafo
+plot(dist, edge.label = E(dist)$weight)
+# busca o caminho mais curto
+# Output lista de vertices ou arestas, both retorna os dois
+caminho = shortest_paths(dist,V(dist)$name=="A",V(dist)$name=="H", output=c("both"))
+caminho$vpath
+# Conferindo
+plot(dist, edge.label = E(dist)$weight)
+```
+
+Criar grafo destacando caminho mais curto
+
+Este código em R é usado para visualizar um grafo, onde os vértices são representados pelas variáveis em `V(dist)` e as arestas são representadas por `E(dist)`. Ele percorre todos os vértices e arestas e verifica se estão presentes na lista do caminho mais curto (`caminho$vpath` para vértices e `caminho$epath` para arestas). Se um vértice ou aresta estiver no caminho mais curto, ele é pintado de verde; caso contrário, é pintado de cinza. O grafo resultante é plotado, e as etiquetas das arestas são definidas como os pesos das arestas em `E(dist)$weight`.
+
+```{r}
+# Percorre os vértices
+for(i in 1:length(V(dist)))
+{ # Se estiver na lista do caminho mais curto pinta de verde, se não cinza
+V(dist)$color[i] <- ifelse(i  %in% as.vector(unlist(caminho$vpath))
+ ,"green","gray")
+}
+
+for(i in 1:length(E(dist)))
+{  # Se estiver na lista do caminho mais curto pinta de verde, se não cinza
+E(dist)$color[i] <- ifelse(i  %in% as.vector(unlist(caminho$epath))
+ , "green","gray")
+}
+
+plot(dist, edge.label = E(dist)$weight)
+```
+
