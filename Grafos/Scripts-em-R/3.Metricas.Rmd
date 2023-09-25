@@ -1,0 +1,66 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Contribuição: Adriano Santos
+
+Métricas
+---
+
+Esse código em R começa por comentar a instalação do pacote "igraph," que é uma biblioteca usada para análise de redes. Em seguida, ele carrega essa biblioteca no ambiente de trabalho, tornando suas funções disponíveis para uso no código subsequente. É importante mencionar que a instalação do pacote só precisa ser realizada uma vez, enquanto o carregamento (library) deve ser feito sempre que você iniciar uma sessão de R para usar o pacote "igraph" em seus scripts.
+
+```{r}
+#install.packages("igraph")
+library(igraph)
+```
+
+ Métricas 
+ 
+ No código fornecido, estamos trabalhando com um grafo de relacionamentos que possui 53 vértices e 179 arestas, carregando-o a partir de um arquivo no formato GraphML. Em seguida, visualizamos o grafo e calculamos o grau de entrada e saída de seus vértices. O grau de entrada mede quantas arestas chegam a cada vértice, enquanto o grau de saída indica quantas arestas partem de cada vértice. Finalmente, o código cria um gráfico do grafo, ajustando o tamanho dos vértices de acordo com o grau de entrada de cada um, o que ajuda na visualização das conexões dentro do grafo.
+ 
+```{r}
+# Carregamos um grafo de relacionamtos 53 vertices e 179 arestas
+grafo8 = read_graph("../dados/Grafo.graphml", format = c("graphml"))
+# 53 vertices e 179 arestas
+grafo8
+plot(grafo8)
+# Grau de entrada e saída 
+degree(grafo8, mode="all")
+# Entrada
+degree(grafo8, mode="in")	
+# Saída
+degree(grafo8, mode="out")
+
+# Colocando o grau no tamanho do vértice
+grau  =  degree(grafo8, mode="in")	
+plot(grafo8, vertex.size=grau)
+```
+
+Mais métricas
+
+O código acima utiliza funções em R para calcular o diâmetro de um grafo, que é a maior distância entre vértices no grafo. O primeiro par de linhas calcula o diâmetro tanto para um grafo direcionado (directed=T) quanto para um grafo não direcionado (directed=F). O segundo par de linhas retorna os vértices que formam o diâmetro, novamente considerando a direção do grafo. Essas operações são úteis para analisar a conectividade e a estrutura de um grafo em análises de rede.
+
+```{r}
+# Diametro (maior distância entre diferentes vértices)
+diameter(grafo8, directed=T)
+diameter(grafo8, directed=F)
+
+# Vértices que formam o diametro
+get_diameter(grafo8, directed=T)
+get_diameter(grafo8, directed=F)
+```
+
+Mais métricas
+
+O código apresentado realiza três operações em um grafo. Primeiramente, a função 'neighborhood' é utilizada para identificar a vizinhança do vértice 0 no grafo 'grafo8', incluindo o próprio vértice e considerando todas as arestas, independentemente da direção. Em seguida, a função 'edge_density' calcula a densidade do grafo 'grafo8'. Por fim, é criado um novo grafo 'grafo9' igual a 'grafo8', e a função 'isomorphic' verifica se os dois grafos são isomórficos, ou seja, se possuem a mesma estrutura.
+
+```{r}
+# Vizinhança, zero incluio o proprio vertice, mode all não considera a direção
+neighborhood(grafo8, 0, mode=c("all"))
+
+# Densidade do grafo
+edge_density(grafo8)
+
+# Teste de isomorfismo
+grafo9 = grafo8
+isomorphic(grafo8,grafo9)
+```
+
