@@ -1,0 +1,85 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Comunidades e Cliques
+---
+
+No código abaixo, estamos utilizando o pacote "igraph" em R para trabalhar com grafos. Primeiro, carregamos o pacote com a função "library(igraph)". Em seguida, lemos um grafo a partir de um arquivo no formato "graphml" localizado em "../dados/Grafo.graphml". Para garantir que o grafo seja não direcionado, usamos "as.undirected(grafo8)". Em resumo, esse código carrega um grafo de um arquivo específico e o transforma em um grafo não direcionado.
+
+```{r}
+# install.packages("igraph")
+library(igraph)
+grafo8 = read_graph("../dados/Grafo.graphml", format = c("graphml"))
+grafo8 = as.undirected(grafo8)
+```
+
+
+Comunidades
+
+O código abaixo, realiza a detecção de comunidades em um grafo usando o algoritmo de betweenness. Primeiro, ele calcula as comunidades com a função cluster_edge_betweenness() e armazena o resultado em 'comunidades'. Em seguida, obtém a associação de cada vértice a uma comunidade e armazena em 'pertencimento'. Por fim, cria uma visualização do grafo onde as cores dos vértices representam suas respectivas comunidades usando a função plot().
+
+```{r}
+# Detecta comunidades
+comunidades <- cluster_edge_betweenness(grafo8)
+
+# Visualiza as comunidades
+comunidades
+
+# Obtém a associação de cada vértice a uma comunidade
+pertencimento <- comunidades$membership
+
+# Visualização utilizando cores para representar as comunidades
+plot(grafo8, vertex.color = pertencimento)
+
+```
+
+
+Recriamos o grafo
+
+O código abaixo, cria um grafo direcionado representado pela variável 'dist' a partir de uma lista de arestas 'edges'. Nesse grafo, os nós são representados pelas letras ("A" a "H"), e as conexões entre eles são definidas pelas entradas na lista 'edges'. Isso é útil para visualizar e analisar relações entre os nós em um contexto de rede ou grafo direcionado.
+
+```{r}
+
+edges <- c("A","C","A","B","B","E","B","F","C","D","G","H","D","H","E","H","F","G")
+dist <- graph(edges = edges, directed = TRUE)
+
+```
+
+
+Este código abaixo, realiza a detecção de comunidades em um grafo, usando o algoritmo de clusterização baseado na betweenness das arestas. Primeiro, ele calcula as comunidades usando `cluster_edge_betweenness` a partir de uma matriz de distância (`dist`). Em seguida, atribui a cada vértice a pertença a uma comunidade e cria um gráfico de dispersão onde os vértices são coloridos de acordo com suas comunidades. O resultado final é uma representação visual das comunidades identificadas no grafo, útil para análise de redes complexas.
+
+```{r}
+# Calcular as comunidades usando edge betweenness clustering
+comunidades <- cluster_edge_betweenness(dist)
+
+# Mostrar as comunidades
+print(comunidades)
+
+# Atribuir a pertença de cada vértice a uma comunidade
+membros_comunidade <- comunidades$membership
+
+# Criar um gráfico de dispersão com cores representando as comunidades
+plot(dist, vertex.color = membros_comunidade, edge.color = "gray")
+
+```
+
+
+Detecção de Cliques
+
+O código abaixo busca identificar cliques em um grafo, especificamente em "grafo8", onde um clique é um conjunto de vértices onde todos estão conectados uns aos outros. O parâmetro "minimum_members" define o número mínimo de membros que um clique deve ter para ser considerado. Primeiro, ele encontra os cliques no grafo com pelo menos "minimum_members" membros, conta quantos foram encontrados e, em seguida, exibe o número de cliques encontrados e a lista de cliques encontrados no grafo.
+
+```{r}
+# Encontre cliques com um número mínimo de membros
+minimum_members = 4
+cliques_found = cliques(as.undirected(grafo8), min = minimum_members)
+cliques_count = length(cliques_found)
+
+# Exiba o número de cliques encontrados
+cat("Número de cliques encontrados:", cliques_count, "\n")
+
+# Exiba os cliques encontrados
+cliques_found
+
+```
+

@@ -1,0 +1,85 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Grafos Clássicos
+---
+
+O código abaixo é usado para instalar e carregar as bibliotecas "igraph" e "igraphdata". Primeiro, ele verifica se essas bibliotecas estão instaladas usando os comandos "install.packages", mas esses comentários geralmente são usados apenas uma vez para instalação. Em seguida, as bibliotecas são carregadas na sessão R com "library(igraph)" e "library(igraphdata)", permitindo que você utilize suas funções e recursos em seu código R atual. É importante ter essas bibliotecas carregadas para trabalhar com gráficos de rede e dados relacionados em R.
+
+```{r}
+# install.packages("igraph")
+# install.packages("igraphdata")
+library(igraph)
+library(igraphdata)
+```
+
+12 grafos clássicos
+Pontes de Koenigsberg
+
+O código abaixo carrega dados do grafo de Koenigsberg, exibe informações sobre o grafo, o plota, calcula os graus de todos os vértices e verifica se o grafo é euleriano. Se todos os graus dos vértices forem pares, ele exibe a mensagem "O grafo de Koenigsberg é euleriano", caso contrário, exibe "O grafo de Koenigsberg não é euleriano, pois possui vértices com graus ímpares." O código é usado para analisar as propriedades do grafo de Koenigsberg em termos de sua capacidade de ser euleriano ou não.
+
+```{r}
+# Carregando os dados de Koenigsberg
+data(Koenigsberg)
+
+# Exibindo informações sobre o grafo de Koenigsberg
+print("Informações sobre o grafo de Koenigsberg:")
+print(Koenigsberg)
+
+# Plotando o grafo de Koenigsberg
+plot(Koenigsberg)
+
+# Calculando os graus de todos os vértices do grafo
+graus <- degree(Koenigsberg, mode = "all")
+
+# Verificando se o grafo possui graus ímpares (não é um grafo euleriano)
+grafoEuleriano <- all(graus %% 2 == 0)
+
+# Exibindo o resultado
+if (grafoEuleriano) {
+  print("O grafo de Koenigsberg é euleriano.")
+} else {
+  print("O grafo de Koenigsberg não é euleriano, pois possui vértices com graus ímpares.")
+}
+
+```
+
+Rede social básica
+
+Nesse código, estamos trabalhando com um conjunto de dados chamado "kite". Primeiro, carregamos esse conjunto de dados. Em seguida, calculamos o grau de todas as arestas do gráfico representado pelo "kite". O parâmetro "mode" é definido como "all" para calcular o grau considerando tanto as arestas de entrada quanto as de saída. Por fim, o código plota o gráfico "kite". Em resumo, esse código carrega um conjunto de dados, calcula o grau das arestas e o visualiza em um gráfico.
+
+```{r}
+
+# Carregar o conjunto de dados kite
+data(kite)
+
+# Calcular o grau de todas as arestas do gráfico
+degree_all <- degree(kite, mode = "all")
+
+# Plotar o gráfico kite
+plot(kite)
+
+```
+
+Amizades em uma faculdade (grafo8)
+
+Nesse código abaixo, estamos trabalhando com um conjunto de dados chamado "kite". Primeiro, carregamos esse conjunto de dados. Em seguida, calculamos o grau de todas as arestas do gráfico representado pelo "kite". O parâmetro "mode" é definido como "all" para calcular o grau considerando tanto as arestas de entrada quanto as de saída. Por fim, o código plota o gráfico "kite". Em resumo, esse código carrega um conjunto de dados, calcula o grau das arestas e o visualiza em um gráfico.
+
+```{r}
+# Carregar os dados
+data(UKfaculty)
+
+# Exibir informações sobre os dados
+print(UKfaculty)
+
+# Plotar os dados
+plot(UKfaculty)
+
+# Calcular as comunidades usando o algoritmo de cluster_edge_betweenness
+comunidades <- cluster_edge_betweenness(UKfaculty, directed = FALSE)
+
+# Plotar as comunidades em relação aos dados originais
+plot(comunidades, UKfaculty)
+
+```
