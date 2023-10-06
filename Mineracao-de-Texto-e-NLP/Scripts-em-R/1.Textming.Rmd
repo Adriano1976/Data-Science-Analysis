@@ -25,10 +25,15 @@ pacman::p_load_gh("trinker/textreadr")
 Criamos corpus - Esse código em R realiza as seguintes ações: primeiro, ele obtém as fontes disponíveis e os formatos para leitura de dados. Em seguida, ele cria um corpus, que pode ser físico ou volátil em memória, dependendo da necessidade. Depois, ele faz o download de dados da página da Wikipedia sobre Inteligência Artificial. Por fim, o código gera um corpus de texto a partir desses dados, especificando que a linguagem é o inglês ("eng"). O corpus é uma estrutura de dados fundamental para análise textual e processamento de linguagem natural, permitindo que futuros profissionais manipulem e analisem informações textuais de forma eficiente.
 
 ```{r}
+# Fontes disponíveis
 getSources()
+
+# Formatos
 getReaders()
+
 # Criar corpus   PCorpus(): fisico, VCorpus: volátil em memória pegamos dados da wikipedia
 creates_corpus = read_html("https://en.wikipedia.org/wiki/Artificial_intelligence")
+
 # Geramos um corpus
 corpus = VCorpus(VectorSource(creates_corpus),
                  readerControl = list(reader = readPlain, language = "eng"))
@@ -112,7 +117,17 @@ findFreqTerms(freq, 500, Inf)
 # Remove infrequentes
 removeSparseTerms(freq, 0.4)
 ```
-Nova Nuvem
+
+Nova Nuvem - Claro, vou explicar o código R em um único parágrafo. Este código cria uma nuvem de palavras usando a função "wordcloud". Os argumentos passados são: "matriz$word" para as palavras a serem exibidas, "matriz$freq" para as frequências das palavras, "max.words = 50" para mostrar no máximo 50 palavras na nuvem, "random.order = T" para ordenar as palavras aleatoriamente, "colors = rainbow(8)" define as cores das palavras, "rot.per = 0.5" controla a rotação das palavras e "use.r.layout = T" para usar um layout específico. Essa função é útil para visualizar as palavras mais frequentes em um conjunto de dados de texto de forma atraente e informativa.
+
 ```{r}
-wordcloud(matriz$word,matriz$freq,max.words=50,random.order=T,colors=rainbow(8),rot.per=0.5,use.r.layout=T)
+wordcloud(
+  matriz$word,
+  matriz$freq,
+  max.words = 50,
+  random.order = T,
+  colors = rainbow(8),
+  rot.per = 0.5,
+  use.r.layout = T
+)
 ```
