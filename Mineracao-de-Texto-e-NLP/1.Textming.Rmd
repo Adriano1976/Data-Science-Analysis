@@ -1,0 +1,118 @@
+---
+Formação Cientista de Dados - Prof. Fernando Amaral
+Colaboração: Adriano Santos
+
+Mineração de Texto
+---
+
+O código acima é utilizado para instalar e carregar pacotes e bibliotecas em R. Primeiro, ele instala os pacotes "tm," "wordcloud," e "RColorBrewer" usando a função "install.packages." Em seguida, ele carrega essas bibliotecas usando a função "library." Além disso, verifica se o pacote "pacman" está instalado e, se não estiver, também o instala. Por fim, usa o pacote "pacman" para carregar o pacote "textreadr" diretamente do repositório GitHub. Esses passos são essenciais para preparar o ambiente de trabalho antes de usar as funcionalidades desses pacotes e bibliotecas em análises de texto no R.
+
+```{r}
+
+ install.packages("tm")
+ install.packages("wordcloud")
+ install.packages("RColorBrewer")
+
+library(tm)
+library(wordcloud)
+library(RColorBrewer)
+ 
+ if (!require("pacman")) install.packages("pacman")
+
+pacman::p_load_gh("trinker/textreadr")
+```
+
+Criamos corpus - Esse código em R realiza as seguintes ações: primeiro, ele obtém as fontes disponíveis e os formatos para leitura de dados. Em seguida, ele cria um corpus, que pode ser físico ou volátil em memória, dependendo da necessidade. Depois, ele faz o download de dados da página da Wikipedia sobre Inteligência Artificial. Por fim, o código gera um corpus de texto a partir desses dados, especificando que a linguagem é o inglês ("eng"). O corpus é uma estrutura de dados fundamental para análise textual e processamento de linguagem natural, permitindo que futuros profissionais manipulem e analisem informações textuais de forma eficiente.
+
+```{r}
+getSources()
+getReaders()
+# Criar corpus   PCorpus(): fisico, VCorpus: volátil em memória pegamos dados da wikipedia
+creates_corpus = read_html("https://en.wikipedia.org/wiki/Artificial_intelligence")
+# Geramos um corpus
+corpus = VCorpus(VectorSource(creates_corpus),
+                 readerControl = list(reader = readPlain, language = "eng"))
+```
+
+Explorando Corpus - No código R fornecido, estamos trabalhando com um objeto chamado "corpus", que provavelmente contém texto ou dados textuais. Primeiro, usamos a função "inspect" para visualizar o resumo do corpus e depois para examinar as 100 primeiras entradas do corpus. Em seguida, acessamos os metadados do primeiro corpus na lista. Após isso, visualizamos o segundo corpus na lista e o convertemos em texto separado por linhas com "as.character". Por fim, acessamos apenas a primeira linha do 200º corpus na lista. Essas operações são úteis para explorar e manipular dados textuais em R, como parte do processamento de linguagem natural ou análise de texto.
+
+```{r}
+# Resumo do corpus
+inspect(corpus) 
+
+# Corpus de 1 a 100
+inspect(corpus[1:100])
+
+# Metadados do corpus 1
+meta(corpus[[1]])  
+
+# Visualizar 1 corpus
+inspect(corpus[[2]])  
+
+# Texto separado por linhas
+as.character(corpus[[2]]) 
+
+# Apenas uma linha
+as.character(corpus[[200]])[1]
+```
+Tratamentos diversos - Esse código R é usado para pré-processar um corpus de texto em português. Primeiro, ele utiliza a função `stopwords("portuguese")` para carregar uma lista de palavras comuns em português que geralmente não são informativas, como artigos e preposições. Em seguida, a função `tm_map` é usada repetidamente para aplicar uma série de transformações ao corpus. Ele remove palavras em inglês (`stopwords("english")`), espaços em branco extras (`stripWhitespace`), pontuação (`removePunctuation`), e números (`removeNumbers`). O resultado é um corpus de texto mais limpo e pronto para análise, onde foram removidos elementos não essenciais, facilitando a análise de texto em português.
+
+```{r}
+# tm_map para executar transformações
+stopwords("portuguese")
+
+# remove
+corpus = tm_map(corpus, removeWords, stopwords("english"))
+
+# excesso de espaços em branco
+corpus = tm_map(corpus , stripWhitespace)
+
+# pontuação
+corpus  = tm_map(corpus , removePunctuation)
+
+# numeros
+corpus  = tm_map(corpus , removeNumbers)
+```
+
+Primeiro Wordcloud - Este código R cria uma nuvem de palavras a partir de um corpus de texto. Ele exibe até 50 palavras de forma aleatória, com cores variadas e algumas delas giradas levemente para melhorar a visualização. Além disso, utiliza um layout especial para organizar as palavras de forma mais esteticamente agradável na nuvem. É uma ferramenta útil para visualizar as palavras mais frequentes em um conjunto de texto e pode ser valiosa para análises de texto e mineração de dados.
+
+```{r}
+wordcloud(
+  corpus,
+  max.words = 50,
+  random.order = T,
+  colors = rainbow(8),
+  rot.per = 0.5,
+  use.r.layout = T
+)
+```
+
+Matriz de termos frequêntes - Nesse código R, estamos trabalhando com uma matriz de palavras frequentes a partir de um conjunto de textos representados por um "corpus." Primeiro, transformamos o "corpus" em uma matriz de termos de documento, onde os termos estão nas linhas. Em seguida, convertemos essa matriz em uma matriz R e a ordenamos de acordo com a frequência das palavras, com as mais frequentes no topo. Em seguida, transformamos essa matriz em um data frame, onde cada linha contém uma palavra e sua frequência. Utilizando a função "findFreqTerms," encontramos os termos mais frequentes, considerando aqueles que aparecem pelo menos 500 vezes. Por fim, usando "removeSparseTerms," removemos termos infrequentes, mantendo apenas aqueles que têm uma frequência relativa de pelo menos 40%. Este código é útil para análise de texto e mineração de dados em textos extensos, identificando as palavras mais relevantes e eliminando aquelas menos importantes.
+
+```{r}
+# Matriz de palavras frequentes
+# TermDocumentMatrix  termos na linha
+# DocumentTermMatrix  documentos na linha
+freq = TermDocumentMatrix(corpus)
+freq
+
+# Tranformao em matrix do R
+matriz = as.matrix(freq)
+
+# Ordeno de acordo com frequencia
+matriz = sort(rowSums(matriz), decreasing = TRUE)
+
+# data frame
+matriz = data.frame(word = names(matriz), freq = matriz)
+head(matriz, n = 100)
+
+# Encontra termos mais frequentes
+findFreqTerms(freq, 500, Inf)
+
+# Remove infrequentes
+removeSparseTerms(freq, 0.4)
+```
+Nova Nuvem
+```{r}
+wordcloud(matriz$word,matriz$freq,max.words=50,random.order=T,colors=rainbow(8),rot.per=0.5,use.r.layout=T)
+```
