@@ -21,10 +21,11 @@ Aproveite a jornada e vamos aprender juntos! 🎓🤝
 
 <hr>
 
-<div align="center">
-<br><p align="centre"><b>Contagem de visitantes</b></p>  
-<p align="center"><img align="center" src="https://profile-counter.glitch.me/{Data-Science-Analysis}/count.svg" /></p> 
-<br>  
+<br><br><br><br><br>  
 
-<img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=87CEFA&height=120&section=footer"/>**** 
+<div align="center">
+  <p><b><h3> Contagem de visitantes </h3></b></p>  
+  <img src="https://vbr.nathanchung.dev/badge?page_id=Adriano1976/Data-Science-Analysis" style="height: 30px;" />
+   <br>
+  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=87CEFA&height=120&section=footer"/>
 </div>
